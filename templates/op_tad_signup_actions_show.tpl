@@ -90,6 +90,25 @@
     </tbody>
 </table>
 
+<!-- 選項統計 -->
+<table class="table table-sm table-bordered">
+    <tbody>
+        <tr>
+            <{foreach from=$statistics key=title item=options}>
+
+                <td>
+                    <b><{$title}></b>
+                    <hr class="my-1">
+                    <{foreach from=$options key=i item=count name=options}>
+                        <div><{$i}> : <{$count}></div>
+                    <{/foreach}>
+                </td>
+            <{/foreach}>
+        </tr>
+    </tbody>
+</table>
+
+
 <{if $smarty.session.can_add && $uid == $now_uid}>
     <div class="bar">
         <a href="javascript:del_action('<{$id}>')" class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i> <{$smarty.const._MD_TAD_SIGNUP_DESTROY_ACTION}></a>

@@ -134,7 +134,7 @@ class Tad_signup_actions
     //以流水號秀出某筆資料內容
     public static function show($id = '')
     {
-        global $xoopsDB, $xoopsTpl, $xoopsUser;
+        global $xoopsTpl, $xoopsUser;
 
         if (empty($id)) {
             return;
@@ -152,6 +152,9 @@ class Tad_signup_actions
 
         $signup = Tad_signup_data::get_all($id, null, true);
         $xoopsTpl->assign('signup', $signup);
+
+        $statistics = Tad_signup_data::statistics($data['setup'], $signup);
+        $xoopsTpl->assign('statistics', $statistics);
 
         BootstrapTable::render();
 

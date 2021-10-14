@@ -242,11 +242,12 @@ class Tad_signup_data
 
         $result = $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
         $data_arr = [];
+        $action = Tad_signup_actions::get($action_id, true);
         $TadDataCenter = new TadDataCenter('tad_signup');
         while ($data = $xoopsDB->fetchArray($result)) {
             $TadDataCenter->set_col('id', $data['id']);
-            $data['tdc'] = $TadDataCenter->getData();
-            $data['action'] = Tad_signup_actions::get($data['action_id'], true);
+            $data['tdc'] = $tdc_arr[] = $TadDataCenter->getData();
+            $data['action'] = $action;
             $TadDataCenter->set_col('data_id', $data['id']);
             $data['tag'] = $TadDataCenter->getData('tag', 0);
 
@@ -256,7 +257,31 @@ class Tad_signup_data
                 $data_arr[$data['id']] = $data;
             }
         }
+
         return $data_arr;
+    }
+
+    // 將 tdc 的陣列進行統計
+    public static function statistics($setup, $signup = [])
+    {
+        $result = [];
+
+        // 先找出選項類的題目
+        $setup_items = explode("\n", $setup);
+        foreach ($setup_items as $setup_item) {
+            preg_match('/radio|checkbox|select/', $setup_item, $matches);
+            if ($matches) {
+                $items = explode(",", $setup_item);
+                $title = str_replace('*', '', $items[0]);
+                foreach ($signup as $data) {
+                    foreach ($data['tdc'][$title] as $value) {
+                        $result[$title][$value]++;
+                    }
+
+                }
+            }
+        }
+        return $result;
     }
 
     // 查詢某人的報名紀錄
