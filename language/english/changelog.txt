@@ -1,5 +1,8 @@
-XOOPS2.5 Demo modules 1.0 （2018/03/10 release）
+Tad Signup 1.1 (Released 2021-08-24)
+====================================
+1.Search function security correction
+
+Tad Signup 1.0 (Released 2021/08/15)
 ===========================================
-1.fix xoops_version.php
-2.add $xoopsTpl
-3.add bootstrap
+1.Module to create events for users to sign up
+2. Officially released

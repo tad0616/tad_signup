@@ -2,9 +2,9 @@
 $modversion = [];
 
 //---模組基本資訊---//
-$modversion['name'] = '活動報名';
-$modversion['version'] = 1.00;
-$modversion['description'] = '活動報名模組';
+$modversion['name'] = _MI_TAD_SIGNUP_NAME;
+$modversion['version'] = 1.1;
+$modversion['description'] = _MI_TAD_SIGNUP_DESCRIPTION;
 $modversion['author'] = 'Tad';
 $modversion['credits'] = '';
 $modversion['help'] = 'page=help';
@@ -14,12 +14,12 @@ $modversion['image'] = 'images/logo.png';
 $modversion['dirname'] = basename(dirname(__FILE__));
 
 //---模組狀態資訊---//
-$modversion['release_date'] = '2021-09-01';
+$modversion['release_date'] = '2021-08-24';
 $modversion['module_website_url'] = 'https://github.com/tad0616/tad_signup';
 $modversion['module_website_name'] = 'Tad Signup GitHub';
 $modversion['module_status'] = 'release';
 $modversion['author_website_url'] = 'https://tad0616.net';
-$modversion['author_website_name'] = 'Tad教材網';
+$modversion['author_website_name'] = _MI_TAD_SIGNUP_AUTHOR_WEBSITE_NAME;
 $modversion['min_php'] = 5.4;
 $modversion['min_xoops'] = '2.5';
 
@@ -36,7 +36,7 @@ $modversion['system_menu'] = 1;
 
 //---模組資料表架構---//
 $modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
-$modversion['tables'] = ['tad_signup_actions', 'tad_signup_data', 'tad_signup_data_center'];
+$modversion['tables'] = ['tad_signup_actions', 'tad_signup_data', 'tad_signup_data_center', 'tad_signup_files_center'];
 
 //---後台管理介面設定---//
 $modversion['hasAdmin'] = 1;
@@ -48,28 +48,38 @@ $modversion['hasMain'] = 1;
 // $modversion['sub'][] = ['name' => '子選項文字', 'url' => '子選項連結位址'];
 
 //---模組自動功能---//
-// $modversion['onInstall'] = "include/install.php";
-// $modversion['onUpdate'] = "include/update.php";
-// $modversion['onUninstall'] = "include/onUninstall.php";
+$modversion['onInstall'] = "include/onInstall.php";
+$modversion['onUpdate'] = "include/onUpdate.php";
+$modversion['onUninstall'] = "include/onUninstall.php";
 
 //---樣板設定---//
-$modversion['templates'][] = ['file' => 'tad_signup_admin.tpl', 'description' => '後台共同樣板'];
-$modversion['templates'][] = ['file' => 'tad_signup_index.tpl', 'description' => '前台共同樣板'];
+$modversion['templates'][] = ['file' => 'tad_signup_admin.tpl', 'description' => _MI_TAD_SIGNUP_TEMPLATES_ADMIN];
+$modversion['templates'][] = ['file' => 'tad_signup_index.tpl', 'description' => _MI_TAD_SIGNUP_TEMPLATES_INDEX];
 
 //---搜尋---//
 $modversion['hasSearch'] = 1;
 $modversion['search'] = ['file' => 'include/search.php', 'func' => 'tad_signup_search'];
 
 //---區塊設定---//
-// $modversion['blocks'][] = [
-//     'file' => '區塊檔.php',
-//     'name' => '區塊名稱',
-//     'description' => '區塊說明',
-//     'show_func' => '執行區塊函數名稱',
-//     'template' => '區塊樣板.tpl',
-//     'edit_func' => '編輯區塊函數名稱',
-//     'options' => '設定值1|設定值2',
-// ];
+$modversion['blocks'][] = [
+    'file' => 'action_list.php',
+    'name' => _MI_TAD_SIGNUP_ACTION_LIST_NAME,
+    'description' => _MI_TAD_SIGNUP_ACTION_LIST_DESCRIPTION,
+    'show_func' => 'action_list',
+    'template' => 'action_list.tpl',
+    'edit_func' => 'action_list_edit',
+    'options' => '5|, `action_date` desc',
+];
+
+$modversion['blocks'][] = [
+    'file' => 'action_signup.php',
+    'name' => _MI_TAD_SIGNUP_ACTION_SIGNUP_NAME,
+    'description' => _MI_TAD_SIGNUP_ACTION_SIGNUP_DESCRIPTION,
+    'show_func' => 'action_signup',
+    'template' => 'action_signup.tpl',
+    'edit_func' => 'action_signup_edit',
+    'options' => '',
+];
 
 //---偏好設定---//
 $modversion['config'][] = [

@@ -4,11 +4,14 @@
 function tad_signup_search($queryarray, $andor, $limit, $offset, $userid)
 {
     global $xoopsDB;
-    if (get_magic_quotes_gpc()) {
+    $myts = \MyTextSanitizer::getInstance();
+    if (is_array($queryarray)) {
         foreach ($queryarray as $k => $v) {
-            $arr[$k] = addslashes($v);
+            $arr[$k] = $myts->addSlashes($v);
         }
         $queryarray = $arr;
+    } else {
+        $queryarray = [];
     }
     $sql = "SELECT `id`,`title`,`action_date`, `uid` FROM " . $xoopsDB->prefix("tad_signup_actions") . " WHERE 1";
     if ($userid != 0) {

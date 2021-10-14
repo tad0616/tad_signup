@@ -6,6 +6,7 @@ use XoopsModules\Tadtools\CkEditor;
 use XoopsModules\Tadtools\FormValidator;
 use XoopsModules\Tadtools\My97DatePicker;
 use XoopsModules\Tadtools\SweetAlert;
+use XoopsModules\Tadtools\TadUpFiles;
 use XoopsModules\Tadtools\Utility;
 use XoopsModules\Tad_signup\Tad_signup_data;
 
@@ -28,7 +29,7 @@ class Tad_signup_actions
     {
         global $xoopsTpl, $xoopsUser;
         if (!$_SESSION['can_add']) {
-            redirect_header($_SERVER['PHP_SELF'], 3, "您沒有權限使用此功能");
+            redirect_header($_SERVER['PHP_SELF'], 3, _TAD_PERMISSION_DENIED);
         }
 
         $uid = $xoopsUser ? $xoopsUser->uid() : 0;
@@ -37,7 +38,7 @@ class Tad_signup_actions
             $db_values = empty($id) ? [] : self::get($id);
 
             if ($uid != $db_values['uid'] && !$_SESSION['tad_signup_adm']) {
-                redirect_header($_SERVER['PHP_SELF'], 3, "您沒有權限使用此功能");
+                redirect_header($_SERVER['PHP_SELF'], 3, _TAD_PERMISSION_DENIED);
             }
 
             $db_values['number'] = empty($id) ? 50 : $db_values['number'];
@@ -68,6 +69,12 @@ class Tad_signup_actions
         $CkEditor = new CkEditor('tad_signup', 'detail', $detail);
         $editor = $CkEditor->render();
         $xoopsTpl->assign("editor", $editor);
+
+        $TadUpFiles = new TadUpFiles('tad_signup');
+        $TadUpFiles->set_col('action_id', $id);
+        $upform = $TadUpFiles->upform(true, 'upfile');
+        $xoopsTpl->assign("upform", $upform);
+
     }
 
     //新增資料
@@ -75,7 +82,7 @@ class Tad_signup_actions
     {
         global $xoopsDB;
         if (!$_SESSION['can_add']) {
-            redirect_header($_SERVER['PHP_SELF'], 3, "您沒有權限使用此功能");
+            redirect_header($_SERVER['PHP_SELF'], 3, _TAD_PERMISSION_DENIED);
         }
 
         //XOOPS表單安全檢查
@@ -89,6 +96,7 @@ class Tad_signup_actions
         $uid = (int) $uid;
         $number = (int) $number;
         $enable = (int) $enable;
+        $candidate = (int) $candidate;
 
         $sql = "insert into `" . $xoopsDB->prefix("tad_signup_actions") . "` (
         `title`,
@@ -98,7 +106,8 @@ class Tad_signup_actions
         `number`,
         `setup`,
         `uid`,
-        `enable`
+        `enable`,
+        `candidate`
         ) values(
         '{$title}',
         '{$detail}',
@@ -107,12 +116,18 @@ class Tad_signup_actions
         '{$number}',
         '{$setup}',
         '{$uid}',
-        '{$enable}'
+        '{$enable}',
+        '{$candidate}'
         )";
         $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
 
         //取得最後新增資料的流水編號
         $id = $xoopsDB->getInsertId();
+
+        $TadUpFiles = new TadUpFiles('tad_signup');
+        $TadUpFiles->set_col('action_id', $id);
+        $TadUpFiles->upload_file('upfile', '1280', '240', '', null, true);
+
         return $id;
     }
 
@@ -149,7 +164,7 @@ class Tad_signup_actions
     {
         global $xoopsDB, $xoopsUser;
         if (!$_SESSION['can_add']) {
-            redirect_header($_SERVER['PHP_SELF'], 3, "您沒有權限使用此功能");
+            redirect_header($_SERVER['PHP_SELF'], 3, _TAD_PERMISSION_DENIED);
         }
 
         //XOOPS表單安全檢查
@@ -163,10 +178,11 @@ class Tad_signup_actions
         $uid = (int) $uid;
         $number = (int) $number;
         $enable = (int) $enable;
+        $candidate = (int) $candidate;
 
         $now_uid = $xoopsUser ? $xoopsUser->uid() : 0;
         if ($uid != $now_uid && !$_SESSION['tad_signup_adm']) {
-            redirect_header($_SERVER['PHP_SELF'], 3, "您沒有權限使用此功能");
+            redirect_header($_SERVER['PHP_SELF'], 3, _TAD_PERMISSION_DENIED);
         }
 
         $sql = "update `" . $xoopsDB->prefix("tad_signup_actions") . "` set
@@ -177,10 +193,14 @@ class Tad_signup_actions
         `number` = '{$number}',
         `setup` = '{$setup}',
         `uid` = '{$uid}',
-        `enable` = '{$enable}'
+        `enable` = '{$enable}',
+        `candidate` = '{$candidate}'
         where `id` = '$id'";
         $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
 
+        $TadUpFiles = new TadUpFiles('tad_signup');
+        $TadUpFiles->set_col('action_id', $id);
+        $TadUpFiles->upload_file('upfile', '1280', '240', '', null, true);
         return $id;
     }
 
@@ -189,7 +209,7 @@ class Tad_signup_actions
     {
         global $xoopsDB, $xoopsUser;
         if (!$_SESSION['can_add']) {
-            redirect_header($_SERVER['PHP_SELF'], 3, "您沒有權限使用此功能");
+            redirect_header($_SERVER['PHP_SELF'], 3, _TAD_PERMISSION_DENIED);
         }
 
         if (empty($id)) {
@@ -199,12 +219,16 @@ class Tad_signup_actions
         $action = self::get($id);
         $now_uid = $xoopsUser ? $xoopsUser->uid() : 0;
         if ($action['uid'] != $now_uid && !$_SESSION['tad_signup_adm']) {
-            redirect_header($_SERVER['PHP_SELF'], 3, "您沒有權限使用此功能");
+            redirect_header($_SERVER['PHP_SELF'], 3, _TAD_PERMISSION_DENIED);
         }
 
         $sql = "delete from `" . $xoopsDB->prefix("tad_signup_actions") . "`
         where `id` = '{$id}'";
         $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
+
+        $TadUpFiles = new TadUpFiles('tad_signup');
+        $TadUpFiles->set_col('action_id', $id);
+        $TadUpFiles->del_files();
     }
 
     //以流水號取得某筆資料
@@ -225,33 +249,41 @@ class Tad_signup_actions
             $data['detail'] = $myts->displayTarea($data['detail'], 1, 0, 0, 0, 0);
             $data['title'] = $myts->htmlSpecialChars($data['title']);
         }
+
+        $TadUpFiles = new TadUpFiles('tad_signup');
+        $TadUpFiles->set_col('action_id', $id);
+        $data['files'] = $TadUpFiles->show_files('upfile');
+
         return $data;
     }
 
     //取得所有資料陣列
-    public static function get_all($only_enable = true, $auto_key = false)
+    public static function get_all($only_enable = true, $auto_key = false, $show_number = 0, $order = ", `action_date` desc")
     {
         global $xoopsDB, $xoopsModuleConfig, $xoopsTpl;
         $myts = \MyTextSanitizer::getInstance();
 
-        $and_enable = $only_enable ? "and `enable` = '1' and `action_date` >= now() " : '';
+        $and_enable = $only_enable ? "and `enable` = '1' and `end_date` >= now() " : '';
 
-        $sql = "select * from `" . $xoopsDB->prefix("tad_signup_actions") . "` where 1 $and_enable order by `enable`, `action_date` desc";
+        $limit = $show_number ? "limit 0, $show_number" : '';
+        $sql = "select * from `" . $xoopsDB->prefix("tad_signup_actions") . "` where 1 $and_enable order by `enable` $order $limit";
 
-        //Utility::getPageBar($原sql語法, 每頁顯示幾筆資料, 最多顯示幾個頁數選項);
-        $PageBar = Utility::getPageBar($sql, $xoopsModuleConfig['show_number'], 10);
-        $bar = $PageBar['bar'];
-        $sql = $PageBar['sql'];
-        $total = $PageBar['total'];
-        $xoopsTpl->assign('bar', $bar);
-        $xoopsTpl->assign('total', $total);
+        if (!$show_number && !$_SESSION['api_mode']) {
+            //Utility::getPageBar($原sql語法, 每頁顯示幾筆資料, 最多顯示幾個頁數選項);
+            $PageBar = Utility::getPageBar($sql, $xoopsModuleConfig['show_number'], 10);
+            $bar = $PageBar['bar'];
+            $sql = $PageBar['sql'];
+            $total = $PageBar['total'];
+            $xoopsTpl->assign('bar', $bar);
+            $xoopsTpl->assign('total', $total);
+        }
 
         $result = $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
         $data_arr = [];
         while ($data = $xoopsDB->fetchArray($result)) {
             $data['title'] = $myts->htmlSpecialChars($data['title']);
             $data['detail'] = $myts->displayTarea($data['detail'], 1, 0, 0, 0, 0);
-            $data['signup'] = Tad_signup_data::get_all($data['id']);
+            $data['signup_count'] = count(Tad_signup_data::get_all($data['id']));
 
             if ($_SESSION['api_mode'] or $auto_key) {
                 $data_arr[] = $data;
@@ -267,7 +299,7 @@ class Tad_signup_actions
     {
         global $xoopsDB, $xoopsUser;
         if (!$_SESSION['can_add']) {
-            redirect_header($_SERVER['PHP_SELF'], 3, "您沒有權限使用此功能");
+            redirect_header($_SERVER['PHP_SELF'], 3, _TAD_PERMISSION_DENIED);
         }
 
         $action = self::get($id);
@@ -283,7 +315,8 @@ class Tad_signup_actions
         `number`,
         `setup`,
         `uid`,
-        `enable`
+        `enable`,
+        `candidate`
         ) values(
         '{$action['title']}_copy',
         '{$action['detail']}',
@@ -292,7 +325,8 @@ class Tad_signup_actions
         '{$action['number']}',
         '{$action['setup']}',
         '{$uid}',
-        '0'
+        '0',
+        '{$action['candidate']}'
         )";
         $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
 
