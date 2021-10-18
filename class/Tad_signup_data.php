@@ -242,12 +242,12 @@ class Tad_signup_data
 
         $result = $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
         $data_arr = [];
-        $action = Tad_signup_actions::get($action_id, true);
+
         $TadDataCenter = new TadDataCenter('tad_signup');
         while ($data = $xoopsDB->fetchArray($result)) {
             $TadDataCenter->set_col('id', $data['id']);
             $data['tdc'] = $tdc_arr[] = $TadDataCenter->getData();
-            $data['action'] = $action;
+            $data['action'] = Tad_signup_actions::get($data['action_id'], true);
             $TadDataCenter->set_col('data_id', $data['id']);
             $data['tag'] = $TadDataCenter->getData('tag', 0);
 
@@ -287,9 +287,10 @@ class Tad_signup_data
     // 查詢某人的報名紀錄
     public static function my($uid)
     {
-        global $xoopsTpl, $xoopsUser;
+        global $xoopsTpl;
 
         $my_signup = self::get_all(null, $uid);
+        // Utility::dd($my_signup);
         $xoopsTpl->assign('my_signup', $my_signup);
         BootstrapTable::render();
     }
@@ -334,7 +335,7 @@ class Tad_signup_data
         if (empty($id)) {
             redirect_header($_SERVER['PHP_SELF'], 3, _MD_TAD_SIGNUP_UNABLE_TO_SEND);
         }
-        $signup = $signup ? $signup : self::get($id, true);
+        $signup = $signup ? $signup : self::get($id);
 
         $now = date("Y-m-d H:i:s");
         $name = $xoopsUser->name();
