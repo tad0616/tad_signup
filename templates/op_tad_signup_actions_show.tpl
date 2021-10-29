@@ -35,7 +35,7 @@
 <table class="table" data-toggle="table" data-pagination="true" data-search="true" data-mobile-responsive="true">
     <thead>
         <tr>
-            <{foreach from=$signup.0.tdc key=col_name item=user name=tdc}>
+            <{foreach from=$titles item=col_name name=tdc}>
                 <th data-sortable="true" nowrap class="c"><{$col_name}></th>
             <{/foreach}>
             <th data-sortable="true" nowrap class="c"><{$smarty.const._MD_TAD_SIGNUP_ACCEPT}></th>
@@ -45,7 +45,8 @@
     <tbody>
         <{foreach from=$signup item=signup_data}>
             <tr>
-                <{foreach from=$signup_data.tdc key=col_name item=user_data}>
+                <{foreach from=$titles item=col_name}>
+                    <{assign var=user_data value=$signup_data.tdc.$col_name}>
                     <td>
                         <{if ($smarty.session.can_add && $uid == $now_uid) || $signup_data.uid == $now_uid}>
                             <{foreach from=$user_data item=data}>
@@ -104,7 +105,6 @@
     <tbody>
         <tr>
             <{foreach from=$statistics key=title item=options}>
-
                 <td>
                     <b><{$title}></b>
                     <hr class="my-1">

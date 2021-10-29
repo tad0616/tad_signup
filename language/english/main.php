@@ -82,5 +82,4 @@ define('_MD_TAD_SIGNUP_ACCEPT_HEAD1', '<p>Your application for the "%s" event in
 define('_MD_TAD_SIGNUP_ACCEPT_HEAD0', '<p>Your application for the "%s" event in %s was reviewed and I regret to inform you that due to limited space, <span style="color:red;">you were not accepted. </span>Your registration information is as follows:</p>');
 define('_MD_TAD_SIGNUP_FAILED_TO_SEND', 'Notification letter failed to be sent!');
 define('_MD_TAD_SIGNUP_UNABLE_TO_OPEN', 'Unable to open');
-
-// *** Translated with www.DeepL.com/Translator (free version) ***
+define('_MD_TAD_SIGNUP_EDITOR', 'Editor');

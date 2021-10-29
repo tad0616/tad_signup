@@ -1,5 +1,6 @@
 <?php
 use Xmf\Request;
+use XoopsModules\Tadtools\TadUpFiles;
 use XoopsModules\Tadtools\Utility;
 use XoopsModules\Tad_signup\Tad_signup_actions;
 use XoopsModules\Tad_signup\Tad_signup_data;

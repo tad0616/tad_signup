@@ -60,7 +60,6 @@ define('_MD_TAD_SIGNUP_DATA_PREVIEW', '報名資料預覽');
 define('_MD_TAD_SIGNUP_DESTROY_APPLY', '取消報名');
 define('_MD_TAD_SIGNUP_EDIT_APPLY', '修改報名資料');
 
-
 // class\Tad_signup_data.php
 define('_MD_TAD_SIGNUP_CANNOT_BE_MODIFIED', '查無報名無資料，無法修改');
 define('_MD_TAD_SIGNUP_END', '已報名截止，無法再進行報名或修改報名');
@@ -83,3 +82,4 @@ define('_MD_TAD_SIGNUP_ACCEPT_HEAD1', '<p>您於 %s 報名「%s」活動經審�
 define('_MD_TAD_SIGNUP_ACCEPT_HEAD0', '<p>您於 %s 報名「%s」活動經審核，很遺憾的通知您，因名額有限，<span style="color:red;">您並未錄取。</span>您的報名資料如下：</p>');
 define('_MD_TAD_SIGNUP_FAILED_TO_SEND', '通知信寄發失敗！');
 define('_MD_TAD_SIGNUP_UNABLE_TO_OPEN', '無法開啟');
+define('_MD_TAD_SIGNUP_EDITOR', '編輯器');
