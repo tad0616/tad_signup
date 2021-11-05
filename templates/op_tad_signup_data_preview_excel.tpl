@@ -15,18 +15,36 @@
                         <{foreach from=$data key=j item=val}>
                             <{assign var=title value=$head.$j}>
                             <{assign var=input_type value=$type.$j}>
+                            <{assign var=options_arr value=$options.$j}>
                             <{if $title!=''}>
                                 <td>
                                     <{if $input_type=="checkbox"}>
-                                    <{assign var=val_arr value='|'|explode:$val}>
-                                        <{foreach from=$val_arr item=val}>
+                                        <{assign var=val_arr value='|'|explode:$val}>
+                                        <{foreach from=$options_arr item=val}>
                                             <div class="form-check-inline checkbox-inline">
                                                 <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" name="tdc[<{$i}>][<{$title}>][]" value="<{$val}>" checked>
-                                                    <{$val}>
+                                                    <input class="form-check-input" type="checkbox" name="tdc[<{$i}>][<{$title}>][]" value="<{$val}>" <{if $val|in_array:$val_arr}>checked<{/if}>>
+                                                    <{$option}>
                                                 </label>
                                             </div>
                                         <{/foreach}>
+                                    <{elseif $input_type=="radio"}>
+                                        <{foreach from=$options_arr item=option}>
+                                            <div class="form-check-inline radio-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio" name="tdc[<{$i}>][<{$title}>]" value="<{$option}>" <{if $option==$val}>checked<{/if}>>
+                                                    <{$option}>
+                                                </label>
+                                            </div>
+                                        <{/foreach}>
+                                    <{elseif $input_type=="select"}>
+                                        <select name="tdc[<{$i}>][<{$title}>]" class="form-control validate[required]">
+                                            <{foreach from=$options_arr item=option}>
+                                                <option value="<{$option}>" <{if $option==$val}>selected<{/if}>><{$option}></option>
+                                            <{/foreach}>
+                                        </select>
+                                    <{elseif $input_type=="const" || $input_type=="hidden"}>
+                                        <input type="hidden" name="tdc[<{$i}>][<{$title}>]" value="<{$val}>"><{$val}>
                                     <{else}>
                                         <input type="text" name="tdc[<{$i}>][<{$title}>]" value="<{$val}>" class="form-control form-control-sm">
                                     <{/if}>

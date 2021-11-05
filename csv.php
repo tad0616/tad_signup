@@ -24,7 +24,6 @@ $csv[] = implode(',', $head);
 
 if ($type == 'signup') {
     $signup = Tad_signup_data::get_all($action['id']);
-    // Utility::dd($signup);
     foreach ($signup as $signup_data) {
         $iteam = [];
         foreach ($signup_data['tdc'] as $user_data) {

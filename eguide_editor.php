@@ -19,7 +19,7 @@ if ($setup) {
             $$is_col = '';
         }
         $col = $TadDataCenter->getColSetup($setup);
-        // Utility::dd($col);
+
         $attrs = [];
         if (in_array($col['kind'], ['radio', 'checkbox', 'select'])) {
             $optionsText = implode(',', $col['options']);

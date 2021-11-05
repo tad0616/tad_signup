@@ -6,6 +6,7 @@ use XoopsModules\Tadtools\CkEditor;
 use XoopsModules\Tadtools\FormValidator;
 use XoopsModules\Tadtools\My97DatePicker;
 use XoopsModules\Tadtools\SweetAlert;
+use XoopsModules\Tadtools\TadDataCenter;
 use XoopsModules\Tadtools\TadUpFiles;
 use XoopsModules\Tadtools\Utility;
 use XoopsModules\Tad_signup\Tad_signup_data;
@@ -161,24 +162,9 @@ class Tad_signup_actions
         $now_uid = $xoopsUser ? $xoopsUser->uid() : 0;
         $xoopsTpl->assign("now_uid", $now_uid);
 
-        $titles = self::get_tdc_title($data['setup']);
+        $TadDataCenter = new TadDataCenter('tad_signup');
+        $titles = $TadDataCenter->getAllColItems($data['setup']);
         $xoopsTpl->assign("titles", $titles);
-    }
-
-    // 取得標題
-    public static function get_tdc_title($setup)
-    {
-        $titles = [];
-
-        // 先找出選項類的題目
-        $setup_items = explode("\n", $setup);
-        foreach ($setup_items as $setup_item) {
-            if (substr($setup_item, 0, 1) != '#') {
-                $items = explode(",", $setup_item);
-                $titles[] = str_replace(['*', "\r", ' '], '', $items[0]);
-            }
-        }
-        return $titles;
     }
 
     //更新某一筆資料

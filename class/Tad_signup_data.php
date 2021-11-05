@@ -200,6 +200,9 @@ class Tad_signup_data
             $TadDataCenter = new TadDataCenter('tad_signup');
             $TadDataCenter->set_col('id', $id);
             $TadDataCenter->delData();
+
+            $TadDataCenter->set_col('data_id', $id);
+            $TadDataCenter->delData();
         } else {
             Utility::web_error($sql, __FILE__, __LINE__);
         }
@@ -456,9 +459,11 @@ class Tad_signup_data
         $xoopsTpl->assign('action', $action);
 
         // 製作標題
-        list($head, $type) = self::get_head($action, true, true);
+        list($head, $type, $options) = self::get_head($action, true, true);
+
         $xoopsTpl->assign('head', $head);
         $xoopsTpl->assign('type', $type);
+        $xoopsTpl->assign('options', $options);
 
         // 抓取內容
         $preview_data = [];
@@ -533,10 +538,11 @@ class Tad_signup_data
         $xoopsTpl->assign('action', $action);
 
         // 製作標題
-        list($head, $type) = self::get_head($action, true, true);
+        list($head, $type, $options) = self::get_head($action, true, true);
 
         $xoopsTpl->assign('head', $head);
         $xoopsTpl->assign('type', $type);
+        $xoopsTpl->assign('options', $options);
 
         // 抓取內容
         $preview_data = [];
@@ -585,15 +591,11 @@ class Tad_signup_data
     //取得報名的標題欄
     public static function get_head($action, $return_type = false, $only_tdc = false)
     {
-        $head_row = explode("\n", $action['setup']);
-        $head = $type = [];
-        foreach ($head_row as $head_data) {
-            $cols = explode(',', $head_data);
-            if (strpos($cols[0], '#') === false) {
-                $head[] = str_replace('*', '', trim($cols[0]));
-                $type[] = trim($cols[1]);
-            }
-        }
+
+        $TadDataCenter = new TadDataCenter('tad_signup');
+        $head = $TadDataCenter->getAllColItems($action['setup']);
+        $type = $TadDataCenter->getAllColItems($action['setup'], 'type');
+        $options = $TadDataCenter->getAllColItems($action['setup'], 'options');
 
         if (!$only_tdc) {
             $head[] = _MD_TAD_SIGNUP_ACCEPT;
@@ -602,7 +604,7 @@ class Tad_signup_data
         }
 
         if ($return_type) {
-            return [$head, $type];
+            return [$head, $type, $options];
         } else {
             return $head;
         }

@@ -17,7 +17,7 @@
                     <{if $action.enable && ($action.number + $action.candidate) > $action.signup_count && $action.end_date|strtotime >= $smarty.now}>
                         <i class="fa fa-check text-success" data-toggle="tooltip" title="<{$smarty.const._MD_TAD_SIGNUP_IN_PROGRESS}>" aria-hidden="true"></i>
                     <{else}>
-                        <i class="fa fa-times text-danger" data-toggle="tooltip" title="<{$smarty.const._MB_TAD_SIGNUP_CANT_APPLY}>" aria-hidden="true"></i>
+                        <i class="fa fa-times text-danger" data-toggle="tooltip" title="<{$smarty.const._MD_TAD_SIGNUP_CANT_APPLY}>" aria-hidden="true"></i>
                     <{/if}>
                     <a href="<{$xoops_url}>/modules/tad_signup/index.php?id=<{$action.id}>"><{$action.title}></a>
                 </td>
