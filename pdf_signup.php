@@ -16,6 +16,7 @@ $action = Tad_signup_actions::get($id);
 
 require_once XOOPS_ROOT_PATH . '/modules/tadtools/tcpdf/tcpdf.php';
 $pdf = new TCPDF("P", "mm", "A4", true, 'UTF-8', false);
+
 $pdf->setPrintHeader(false); //不要頁首
 $pdf->setPrintFooter(false); //不要頁尾
 $pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM); //設定自動分頁
@@ -42,7 +43,7 @@ if (empty($col_count)) {
 }
 
 $h = 15;
-$w = 120 / $col_count;
+$w = 110 / $col_count;
 $maxh = 15;
 $pdf->Cell(15, $h, _MD_TAD_SIGNUP_ID, 1, 0, 'C');
 foreach ($col_arr as $col_name) {
@@ -54,6 +55,19 @@ $signup = Tad_signup_data::get_all($action['id'], null, true, true);
 // Utility::dd($signup);
 $i = 1;
 foreach ($signup as $signup_data) {
+
+    $pdf2 = clone $pdf;
+    $pdf2->SetMargins(15, 0);
+    $pdf2->AddPage();
+    $pdf2->MultiCell(15, $h, $i, 1, 'C', false, 0, '', '', true, 0, false, true, $maxh, 'M');
+    foreach ($col_arr as $col_name) {
+        $pdf2->MultiCell($w, $h, implode('、', $signup_data['tdc'][$col_name]), 1, 'C', false, 0, '', '', true, 0, false, true, $maxh, 'M');
+    }
+    $pdf2->MultiCell(55, $h, '', 1, 'C', false, 1, '', '', true, 0, false, true, $maxh, 'M');
+    $height = $pdf2->getY();
+    $pdf2->deletePage($pdf2->getPage());
+    $pdf->checkPageBreak($height);
+
     $pdf->MultiCell(15, $h, $i, 1, 'C', false, 0, '', '', true, 0, false, true, $maxh, 'M');
     foreach ($col_arr as $col_name) {
         $pdf->MultiCell($w, $h, implode('、', $signup_data['tdc'][$col_name]), 1, 'C', false, 0, '', '', true, 0, false, true, $maxh, 'M');
