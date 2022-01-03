@@ -51,11 +51,12 @@ class Tad_signup_data
         $xoopsTpl->assign("token_form", $token_form);
 
         $action = Tad_signup_actions::get($action_id, true);
+        $signup = Tad_signup_data::get_all($action_id);
         if (time() > strtotime($action['end_date'])) {
             redirect_header($_SERVER['PHP_SELF'], 3, _MD_TAD_SIGNUP_END);
         } elseif (!$action['enable']) {
             redirect_header($_SERVER['PHP_SELF'], 3, _MD_TAD_SIGNUP_CLOSED);
-        } elseif ($action['signup_count'] >= ($action['number'] + $action['candidate'])) {
+        } elseif (count($signup) >= ($action['number'] + $action['candidate'])) {
             redirect_header($_SERVER['PHP_SELF'], 3, _MD_TAD_SIGNUP_FULL);
         }
         $xoopsTpl->assign("action", $action);
