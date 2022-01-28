@@ -25,7 +25,7 @@ function tad_signup_search($queryarray, $andor, $limit, $offset, $userid)
         }
         $sql .= ") ";
     }
-    $sql .= "ORDER BY  `action_date` DESC";
+    $sql .= "ORDER BY `action_date` DESC";
     $result = $xoopsDB->query($sql, $limit, $offset);
     $ret = array();
     $i = 0;

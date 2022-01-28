@@ -1,3 +1,11 @@
+Tad Signup 1.2 (Released on 2022-01-28)
+====================================
+1. Add form editor
+2. Fix the problem of file can not be downloaded
+3. Fix the preview interface when importing
+4. Avoid PDF sign-in form being cut in half
+5. Support BootStrap5
+
 Tad Signup 1.1 (Released 2021-08-24)
 ====================================
 1.Search function security correction
