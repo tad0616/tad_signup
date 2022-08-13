@@ -1,3 +1,8 @@
+Tad Signup 1.3 (Released on 2022-08-13)
+====================================
+1. CSS reduce the introduction of external style files
+2. Fix font
+
 Tad Signup 1.2 (Released on 2022-01-28)
 ====================================
 1. Add form editor
