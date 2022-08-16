@@ -107,7 +107,7 @@
                 <td>
                     <{$signup_data.signup_date}>
                     <{if $signup_data.tag}>
-                        <div><span class="badge badge-primary"><{$signup_data.tag}></span></div>
+                        <div><span class="badge badge-primary bg-primary"><{$signup_data.tag}></span></div>
                     <{/if}>
                 </td>
             </tr>

@@ -1,7 +1,7 @@
 <ul class="list-group">
     <{foreach from=$block item=action}>
         <li class="list-group-item">
-            <span class="badge badge-info"><{$action.action_date|substr:0:-3}></span>
+            <span class="badge badge-info bg-info"><{$action.action_date|substr:0:-3}></span>
             <small>
                 <{$smarty.const._MB_TAD_SIGNUP_QUOTA}> <{$action.number}>
                 <{if $action.candidate}><span data-toggle="tooltip" title="<{$smarty.const._MB_TAD_SIGNUP_CANDIDATES_QUOTA}>">(<{$action.candidate}>)</span><{/if}>
