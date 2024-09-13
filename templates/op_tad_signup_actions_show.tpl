@@ -57,7 +57,7 @@
         <{foreach from=$signup item=signup_data}>
             <tr>
                 <{foreach from=$titles item=col_name}>
-                    <{assign var=user_data value=$signup_data.tdc.$col_name}>
+                    <{assign var="user_data" value=$signup_data.tdc.$col_name}>
                     <td>
                         <{if ($smarty.session.can_add && $uid == $now_uid) || $signup_data.uid == $now_uid}>
                             <{foreach from=$user_data item=data}>

@@ -23,5 +23,5 @@
 </h4>
 
 <div class="text-center my-3">
-    <a href="<{$xoops_url}>/modules/tad_signup/index.php?op=tad_signup_data_create&action_id=<{$block.id}>" class="btn btn-lg btn-info <{if !($block.enable && ($block.number + $block.candidate) > $block.signup_count && $xoops_isuser && $block.end_date|strtotime >= $smarty.now)}>disabled<{/if}>"><i class="fa fa-plus" aria-hidden="true"></i> <{$smarty.const._MB_TAD_SIGNUP_APPLY_NOW}></a>
+    <a href="<{$xoops_url}>/modules/tad_signup/index.php?op=tad_signup_data_create&action_id=<{$block.id}>" class="btn btn-lg btn-info <{if !($block.enable && ($block.number + $block.candidate) > $block.signup_count && $xoops_isuser|default:false && $block.end_date|strtotime >= $smarty.now)}>disabled<{/if}>"><i class="fa fa-plus" aria-hidden="true"></i> <{$smarty.const._MB_TAD_SIGNUP_APPLY_NOW}></a>
 </div>

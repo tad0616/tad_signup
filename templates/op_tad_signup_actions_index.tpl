@@ -33,7 +33,7 @@
                         <a href="<{$xoops_url}>/modules/tad_signup/index.php?op=tad_signup_actions_copy&id=<{$action.id}>" class="btn btn-sm btn-info"><i class="fa fa-copy" aria-hidden="true"></i> <{$smarty.const._CLONE}></a>
                     <{/if}>
 
-                    <{if $action.enable && ($action.number + $action.candidate) > $action.signup_count && $xoops_isuser && $action.end_date|strtotime >= $smarty.now}>
+                    <{if $action.enable && ($action.number + $action.candidate) > $action.signup_count && $xoops_isuser|default:false && $action.end_date|strtotime >= $smarty.now}>
                         <a href="<{$xoops_url}>/modules/tad_signup/index.php?op=tad_signup_data_create&action_id=<{$action.id}>" class="btn btn-sm btn-info"><i class="fa fa-plus" aria-hidden="true"></i> <{$smarty.const._MD_TAD_SIGNUP_APPLY_NOW}></a>
                     <{else}>
                         <a href="<{$xoops_url}>/modules/tad_signup/index.php?id=<{$action.id}>" class="btn btn-sm btn-success"><i class="fa fa-file" aria-hidden="true"></i> <{$smarty.const._MORE}></a>

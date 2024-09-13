@@ -1,6 +1,6 @@
 <h2 class="my"><{$smarty.const._MD_TAD_SIGNUP_IMPORT}> <{$action.title}> <{$smarty.const._MD_TAD_SIGNUP_DATA_PREVIEW}></h2>
 <div class="alert alert-info">
-    可報名人數為 <{$action.number}> 人，候補人數 <{$action.candidate}> 人，目前匯入人數共 <{$preview_data|@count}> 人
+    可報名人數為 <{$action.number}> 人，候補人數 <{$action.candidate}> 人，目前匯入人數共 <{if $preview_data}><{$preview_data|@count}><{else}>0<{/if}> 人
 </div>
 <form action="index.php" method="post" id="myForm">
     <table class="table table-bordered table-sm">
@@ -16,13 +16,13 @@
                 <{if $smarty.foreach.preview_data.iteration > 1}>
                     <tr>
                         <{foreach from=$data key=j item=val}>
-                            <{assign var=title value=$head.$j}>
-                            <{assign var=input_type value=$type.$j}>
-                            <{assign var=options_arr value=$options.$j}>
+                            <{assign var="title" value=$head.$j}>
+                            <{assign var="input_type" value=$type.$j}>
+                            <{assign var="options_arr" value=$options.$j}>
                             <{if $title!=''}>
                                 <td>
                                     <{if $input_type=="checkbox"}>
-                                        <{assign var=val_arr value='|'|explode:$val}>
+                                        <{assign var="val_arr" value='|'|explode:$val}>
                                         <{foreach from=$options_arr item=option}>
                                             <div class="form-check-inline checkbox-inline">
                                                 <label class="form-check-label">

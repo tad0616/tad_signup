@@ -89,10 +89,8 @@ class Tad_signup_actions
         //XOOPS表單安全檢查
         Utility::xoops_security_check();
 
-        $myts = \MyTextSanitizer::getInstance();
-
         foreach ($_POST as $var_name => $var_val) {
-            $$var_name = $myts->addSlashes($var_val);
+            $$var_name = $xoopsDB->escape($var_val);
         }
         $uid = (int) $uid;
         $number = (int) $number;
@@ -178,10 +176,8 @@ class Tad_signup_actions
         //XOOPS表單安全檢查
         Utility::xoops_security_check();
 
-        $myts = \MyTextSanitizer::getInstance();
-
         foreach ($_POST as $var_name => $var_val) {
-            $$var_name = $myts->addSlashes($var_val);
+            $$var_name = $xoopsDB->escape($var_val);
         }
         $uid = (int) $uid;
         $number = (int) $number;
