@@ -4,7 +4,7 @@
             <span class="badge badge-info bg-info"><{$action.action_date|substr:0:-3}></span>
             <small>
                 <{$smarty.const._MB_TAD_SIGNUP_QUOTA}> <{$action.number}>
-                <{if $action.candidate}><span data-toggle="tooltip" title="<{$smarty.const._MB_TAD_SIGNUP_CANDIDATES_QUOTA}>">(<{$action.candidate}>)</span><{/if}>
+                <{if $action.candidate|default:false}><span data-toggle="tooltip" title="<{$smarty.const._MB_TAD_SIGNUP_CANDIDATES_QUOTA}>">(<{$action.candidate}>)</span><{/if}>
                 <{$smarty.const._MB_TAD_SIGNUP_PEOPLE}><{$smarty.const._MB_TAD_SIGNUP_APPLIED}> <{$action.signup_count}> <{$smarty.const._MB_TAD_SIGNUP_PEOPLE}>
             </small>
             <div>

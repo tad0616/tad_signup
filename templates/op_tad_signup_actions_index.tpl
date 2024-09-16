@@ -25,7 +25,7 @@
                 <td><{$action.end_date}></td>
                 <td>
                     <{$action.signup_count}>/<{$action.number}>
-                    <{if $action.candidate}><span data-toggle="tooltip" title="<{$smarty.const._MD_TAD_SIGNUP_CANDIDATES_QUOTA}>">(<{$action.candidate}>)</span><{/if}>
+                    <{if $action.candidate|default:false}><span data-toggle="tooltip" title="<{$smarty.const._MD_TAD_SIGNUP_CANDIDATES_QUOTA}>">(<{$action.candidate}>)</span><{/if}>
                 </td>
                 <td>
                     <{if $smarty.session.can_add && ($action.uid==$now_uid || $smarty.session.tad_signup_adm)}>
@@ -46,7 +46,7 @@
 
 <{$bar}>
 
-<{if $smarty.session.can_add}>
+<{if $smarty.session.can_add|default:false}>
     <div class="bar">
         <a href="<{$xoops_url}>/modules/tad_signup/index.php?op=tad_signup_actions_create" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> <{$smarty.const._MD_TAD_SIGNUP_ADD_ACTION}></a>
     </div>

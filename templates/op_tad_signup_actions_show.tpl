@@ -28,7 +28,7 @@
     <small>
         <i class="fa fa-calendar-check-o" aria-hidden="true"></i> <{$smarty.const._MD_TAD_SIGNUP_END_DATE_COL}><{$smarty.const._TAD_FOR}><{$end_date}>
         <i class="fa fa-users" aria-hidden="true"></i> <{$smarty.const._MD_TAD_SIGNUP_APPLY_MAX}><{$smarty.const._TAD_FOR}><{$number}>
-        <{if $candidate}><span data-toggle="tooltip" title="<{$smarty.const._MD_TAD_SIGNUP_CANDIDATES_QUOTA}>">(<{$candidate}>)</span><{/if}>
+        <{if $candidate|default:false}><span data-toggle="tooltip" title="<{$smarty.const._MD_TAD_SIGNUP_CANDIDATES_QUOTA}>">(<{$candidate}>)</span><{/if}>
     </small>
 </h3>
 
@@ -106,7 +106,7 @@
                 </td>
                 <td>
                     <{$signup_data.signup_date}>
-                    <{if $signup_data.tag}>
+                    <{if $signup_data.tag|default:false}>
                         <div><span class="badge badge-primary bg-primary"><{$signup_data.tag}></span></div>
                     <{/if}>
                 </td>
@@ -136,7 +136,7 @@
 
 <{if $smarty.session.can_add && $uid == $now_uid}>
     <div class="bar">
-        <{if $signup}>
+        <{if $signup|default:false}>
             <div class="input-group">
                 <div class="input-group-prepend input-group-addon">
                     <span class="input-group-text"><{$smarty.const._MD_TAD_SIGNUP_EXPORT_APPLY_LIST}><{$smarty.const._TAD_FOR}></span>
