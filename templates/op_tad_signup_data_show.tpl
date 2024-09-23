@@ -24,10 +24,10 @@
 <table class="table">
     <{foreach from=$tdc key=title item=signup name=tdc}>
         <tr>
-            <th><{$title}></th>
+            <th><{$title|default:''}></th>
             <td>
                 <{foreach from=$signup key=i item=val name=signup}>
-                    <div><{$val}></div>
+                    <div><{$val|default:''}></div>
                 <{/foreach}>
             </td>
         </tr>
@@ -36,7 +36,7 @@
 
 <{if $can_add || $uid == $now_uid}>
     <div class="bar">
-        <a href="javascript:del_data('<{$id}>')" class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i> <{$smarty.const._MD_TAD_SIGNUP_DESTROY_APPLY}></a>
-        <a href="<{$xoops_url}>/modules/tad_signup/index.php?op=tad_signup_data_edit&id=<{$id}>&action_id=<{$action_id}>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> <{$smarty.const._MD_TAD_SIGNUP_EDIT_APPLY}></a>
+        <a href="javascript:del_data('<{$id|default:''}>')" class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i> <{$smarty.const._MD_TAD_SIGNUP_DESTROY_APPLY}></a>
+        <a href="<{$xoops_url}>/modules/tad_signup/index.php?op=tad_signup_data_edit&id=<{$id|default:''}>&action_id=<{$action_id|default:''}>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> <{$smarty.const._MD_TAD_SIGNUP_EDIT_APPLY}></a>
     </div>
 <{/if}>

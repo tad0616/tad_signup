@@ -24,13 +24,13 @@
 <form action="index.php" method="post" id="myForm" enctype="multipart/form-data" class="form-horizontal">
 
     <div class="alert alert-success">
-        <{$signup_form}>
+        <{$signup_form|default:''}>
     </div>
-    <{$token_form}>
-    <input type="hidden" name="op" value="<{$next_op}>">
-    <input type="hidden" name="id" value="<{$id}>">
+    <{$token_form|default:''}>
+    <input type="hidden" name="op" value="<{$next_op|default:''}>">
+    <input type="hidden" name="id" value="<{$id|default:''}>">
     <input type="hidden" name="action_id" value="<{$action.id}>">
-    <input type="hidden" name="uid" value="<{$uid}>">
+    <input type="hidden" name="uid" value="<{$uid|default:''}>">
     <div class="bar">
         <button type="submit" class="btn btn-primary">
             <i class="fa fa-save" aria-hidden="true"></i> <{$smarty.const._TAD_SAVE}>

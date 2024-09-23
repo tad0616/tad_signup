@@ -7,7 +7,7 @@
             <{$smarty.const._MD_TAD_SIGNUP_TITLE}>
         </label>
         <div class="col-sm-10">
-            <input type="text" name="title" id="title" class="form-control validate[required]" value="<{$title}>" placeholder="<{$smarty.const._MD_TAD_SIGNUP_KEYIN}><{$smarty.const._MD_TAD_SIGNUP_TITLE}>">
+            <input type="text" name="title" id="title" class="form-control validate[required]" value="<{$title|default:''}>" placeholder="<{$smarty.const._MD_TAD_SIGNUP_KEYIN}><{$smarty.const._MD_TAD_SIGNUP_TITLE}>">
         </div>
     </div>
 
@@ -16,7 +16,7 @@
             <{$smarty.const._MD_TAD_SIGNUP_DETAIL}>
         </label>
         <div class="col-sm-10">
-            <{$editor}>
+            <{$editor|default:''}>
         </div>
     </div>
 
@@ -25,7 +25,7 @@
             <{$smarty.const._MD_TAD_SIGNUP_END_DATE_COL}>
         </label>
         <div class="col-sm-10">
-            <input type="text" name="end_date" id="end_date" class="form-control validate[required]" value="<{$end_date}>" placeholder="<{$smarty.const._MD_TAD_SIGNUP_KEYIN}><{$smarty.const._MD_TAD_SIGNUP_END_DATE_COL}>" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:00' , startDate:'%y-%M-%d %H:%m:%s}'})">
+            <input type="text" name="end_date" id="end_date" class="form-control validate[required]" value="<{$end_date|default:''}>" placeholder="<{$smarty.const._MD_TAD_SIGNUP_KEYIN}><{$smarty.const._MD_TAD_SIGNUP_END_DATE_COL}>" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:00' , startDate:'%y-%M-%d %H:%m:%s}'})">
         </div>
     </div>
 
@@ -34,7 +34,7 @@
             <{$smarty.const._MD_TAD_SIGNUP_ACTION_DATE}>
         </label>
         <div class="col-sm-10">
-            <input type="text" name="action_date" id="action_date" class="form-control validate[required]" value="<{$action_date}>" placeholder="<{$smarty.const._MD_TAD_SIGNUP_KEYIN}><{$smarty.const._MD_TAD_SIGNUP_ACTION_DATE}>" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:00' , startDate:'%y-%M-%d %H:%m:%s}'})">
+            <input type="text" name="action_date" id="action_date" class="form-control validate[required]" value="<{$action_date|default:''}>" placeholder="<{$smarty.const._MD_TAD_SIGNUP_KEYIN}><{$smarty.const._MD_TAD_SIGNUP_ACTION_DATE}>" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:00' , startDate:'%y-%M-%d %H:%m:%s}'})">
         </div>
     </div>
 
@@ -43,7 +43,7 @@
             <{$smarty.const._MD_TAD_SIGNUP_NUMBER}>
         </label>
         <div class="col-sm-10">
-            <input type="number" name="number" id="number" class="form-control validate[required]" value="<{$number}>" placeholder="<{$smarty.const._MD_TAD_SIGNUP_KEYIN}><{$smarty.const._MD_TAD_SIGNUP_NUMBER}>">
+            <input type="number" name="number" id="number" class="form-control validate[required]" value="<{$number|default:''}>" placeholder="<{$smarty.const._MD_TAD_SIGNUP_KEYIN}><{$smarty.const._MD_TAD_SIGNUP_NUMBER}>">
         </div>
     </div>
 
@@ -52,7 +52,7 @@
             <{$smarty.const._MD_TAD_SIGNUP_CANDIDATES_QUOTA}>
         </label>
         <div class="col-sm-10">
-            <input type="number" name="candidate" id="candidate" class="form-control validate[required]" value="<{$candidate}>" placeholder="<{$smarty.const._MD_TAD_SIGNUP_KEYIN}><{$smarty.const._MD_TAD_SIGNUP_CANDIDATES_QUOTA}>">
+            <input type="number" name="candidate" id="candidate" class="form-control validate[required]" value="<{$candidate|default:''}>" placeholder="<{$smarty.const._MD_TAD_SIGNUP_KEYIN}><{$smarty.const._MD_TAD_SIGNUP_CANDIDATES_QUOTA}>">
         </div>
     </div>
 
@@ -63,7 +63,7 @@
             <div onClick="popupwindow('eguide_editor.php', 'eguide editor', 1024, 600)" style="cursor: pointer; color: rgb(102, 19, 128);"><i class="fa fa-pencil" aria-hidden="true"></i> <{$smarty.const._MD_TAD_SIGNUP_EDITOR}></div>
         </label>
         <div class="col-sm-10">
-            <textarea name="setup" id="setup" class="form-control validate[required]" placeholder="<{$smarty.const._MD_TAD_SIGNUP_KEYIN}><{$smarty.const._MD_TAD_SIGNUP_SETUP}>"><{$setup}></textarea>
+            <textarea name="setup" id="setup" class="form-control validate[required]" placeholder="<{$smarty.const._MD_TAD_SIGNUP_KEYIN}><{$smarty.const._MD_TAD_SIGNUP_SETUP}>"><{$setup|default:''}></textarea>
         </div>
     </div>
 
@@ -92,14 +92,14 @@
             <{$smarty.const._MD_TAD_SIGNUP_UPLOADS}>
         </label>
         <div class="col-sm-10">
-            <{$upform}>
+            <{$upform|default:''}>
         </div>
     </div>
 
-    <{$token_form}>
-    <input type="hidden" name="uid" value="<{$uid}>">
-    <input type="hidden" name="id" value="<{$id}>">
-    <input type="hidden" name="op" value="<{$next_op}>">
+    <{$token_form|default:''}>
+    <input type="hidden" name="uid" value="<{$uid|default:''}>">
+    <input type="hidden" name="id" value="<{$id|default:''}>">
+    <input type="hidden" name="op" value="<{$next_op|default:''}>">
     <div class="bar">
         <button type="submit" class="btn btn-primary">
             <i class="fa fa-save" aria-hidden="true"></i> <{$smarty.const._TAD_SAVE}>

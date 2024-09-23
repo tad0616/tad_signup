@@ -4,12 +4,12 @@
     <{else}>
         <i class="fa fa-times text-danger" aria-hidden="true"></i>
     <{/if}>
-    <{$title}>
-    <small><i class="fa fa-calendar" aria-hidden="true"></i> <{$smarty.const._MD_TAD_SIGNUP_ACTION_DATE}><{$smarty.const._TAD_FOR}><{$action_date}></small>
+    <{$title|default:''}>
+    <small><i class="fa fa-calendar" aria-hidden="true"></i> <{$smarty.const._MD_TAD_SIGNUP_ACTION_DATE}><{$smarty.const._TAD_FOR}><{$action_date|default:''}></small>
 </h2>
 
 <div class="alert alert-info">
-    <{$detail}>
+    <{$detail|default:''}>
 </div>
 
 <!-- AddToAny BEGIN -->
@@ -21,24 +21,24 @@
 <script async src="https://static.addtoany.com/menu/page.js"></script>
 <!-- AddToAny END -->
 
-<{$files}>
+<{$files|default:''}>
 
 <h3 class="my">
     <{$smarty.const._MD_TAD_SIGNUP_APPLIED_DATA}>
     <small>
-        <i class="fa fa-calendar-check-o" aria-hidden="true"></i> <{$smarty.const._MD_TAD_SIGNUP_END_DATE_COL}><{$smarty.const._TAD_FOR}><{$end_date}>
-        <i class="fa fa-users" aria-hidden="true"></i> <{$smarty.const._MD_TAD_SIGNUP_APPLY_MAX}><{$smarty.const._TAD_FOR}><{$number}>
-        <{if $candidate|default:false}><span data-toggle="tooltip" title="<{$smarty.const._MD_TAD_SIGNUP_CANDIDATES_QUOTA}>">(<{$candidate}>)</span><{/if}>
+        <i class="fa fa-calendar-check-o" aria-hidden="true"></i> <{$smarty.const._MD_TAD_SIGNUP_END_DATE_COL}><{$smarty.const._TAD_FOR}><{$end_date|default:''}>
+        <i class="fa fa-users" aria-hidden="true"></i> <{$smarty.const._MD_TAD_SIGNUP_APPLY_MAX}><{$smarty.const._TAD_FOR}><{$number|default:''}>
+        <{if $candidate|default:false}><span data-toggle="tooltip" title="<{$smarty.const._MD_TAD_SIGNUP_CANDIDATES_QUOTA}>">(<{$candidate|default:''}>)</span><{/if}>
     </small>
 </h3>
 
 <{if $smarty.session.can_add && $uid == $now_uid }>
     <div class="bar">
-        <a href="javascript:del_action('<{$id}>')" class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i> <{$smarty.const._MD_TAD_SIGNUP_DESTROY_ACTION}></a>
-        <a href="<{$xoops_url}>/modules/tad_signup/index.php?op=tad_signup_actions_edit&id=<{$id}>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> <{$smarty.const._MD_TAD_SIGNUP_EDIT_ACTION}></a>
-        <a href="<{$xoops_url}>/modules/tad_signup/html.php?id=<{$id}>" class="btn btn-primary"><i class="fa fa-html5" aria-hidden="true"></i> <{$smarty.const._MD_TAD_SIGNUP_EXPORT_HTML}></a>
+        <a href="javascript:del_action('<{$id|default:''}>')" class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i> <{$smarty.const._MD_TAD_SIGNUP_DESTROY_ACTION}></a>
+        <a href="<{$xoops_url}>/modules/tad_signup/index.php?op=tad_signup_actions_edit&id=<{$id|default:''}>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> <{$smarty.const._MD_TAD_SIGNUP_EDIT_ACTION}></a>
+        <a href="<{$xoops_url}>/modules/tad_signup/html.php?id=<{$id|default:''}>" class="btn btn-primary"><i class="fa fa-html5" aria-hidden="true"></i> <{$smarty.const._MD_TAD_SIGNUP_EXPORT_HTML}></a>
 
-        <a href="<{$xoops_url}>/modules/tad_signup/index.php?op=tad_signup_data_pdf_setup&id=<{$id}>" class="btn btn-info"><i class="fa fa-save" aria-hidden="true"></i> <{$smarty.const._MD_TAD_SIGNUP_EXPORT_SIGNIN_TABLE}></a>
+        <a href="<{$xoops_url}>/modules/tad_signup/index.php?op=tad_signup_data_pdf_setup&id=<{$id|default:''}>" class="btn btn-info"><i class="fa fa-save" aria-hidden="true"></i> <{$smarty.const._MD_TAD_SIGNUP_EXPORT_SIGNIN_TABLE}></a>
     </div>
 <{/if}>
 
@@ -47,7 +47,7 @@
     <thead>
         <tr>
             <{foreach from=$titles item=col_name name=tdc}>
-                <th data-sortable="true" nowrap class="c"><{$col_name}></th>
+                <th data-sortable="true" nowrap class="c"><{$col_name|default:''}></th>
             <{/foreach}>
             <th data-sortable="true" nowrap class="c"><{$smarty.const._MD_TAD_SIGNUP_ACCEPT}></th>
             <th data-sortable="true" nowrap class="c"><{$smarty.const._MD_TAD_SIGNUP_APPLY_DATE}></th>
@@ -62,7 +62,7 @@
                         <{if ($smarty.session.can_add && $uid == $now_uid) || $signup_data.uid == $now_uid}>
                             <{foreach from=$user_data item=data}>
                                 <div>
-                                    <a href="<{$xoops_url}>/modules/tad_signup/index.php?op=tad_signup_data_show&id=<{$signup_data.id}>"><{$data}></a>
+                                    <a href="<{$xoops_url}>/modules/tad_signup/index.php?op=tad_signup_data_show&id=<{$signup_data.id}>"><{$data|default:''}></a>
                                 </div>
                             <{/foreach}>
                         <{else}>
@@ -85,22 +85,22 @@
                     <{if $signup_data.accept==='1'}>
                         <div class="text-primary">
                             <{if $smarty.session.can_add && $uid == $now_uid}>
-                                <a href="<{$xoops_url}>/modules/tad_signup/index.php?op=tad_signup_data_accept&id=<{$signup_data.id}>&action_id=<{$id}>&accept=0" class="btn btn-sm btn-warning" data-toggle="tooltip" title="<{$smarty.const._MD_TAD_SIGNUP_CHANGE_TO}><{$smarty.const._MD_TAD_SIGNUP_NOT_ACCEPT}>"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                <a href="<{$xoops_url}>/modules/tad_signup/index.php?op=tad_signup_data_accept&id=<{$signup_data.id}>&action_id=<{$id|default:''}>&accept=0" class="btn btn-sm btn-warning" data-toggle="tooltip" title="<{$smarty.const._MD_TAD_SIGNUP_CHANGE_TO}><{$smarty.const._MD_TAD_SIGNUP_NOT_ACCEPT}>"><i class="fa fa-times" aria-hidden="true"></i></a>
                             <{/if}>
                             <{$smarty.const._MD_TAD_SIGNUP_ACCEPT}>
                         </div>
                     <{elseif $signup_data.accept==='0'}>
                         <div class="text-danger">
                             <{if $smarty.session.can_add && $uid == $now_uid}>
-                                <a href="<{$xoops_url}>/modules/tad_signup/index.php?op=tad_signup_data_accept&id=<{$signup_data.id}>&action_id=<{$id}>&accept=1" class="btn btn-sm btn-warning" data-toggle="tooltip" title="<{$smarty.const._MD_TAD_SIGNUP_CHANGE_TO}><{$smarty.const._MD_TAD_SIGNUP_ACCEPT}>"><i class="fa fa-check" aria-hidden="true"></i></a>
+                                <a href="<{$xoops_url}>/modules/tad_signup/index.php?op=tad_signup_data_accept&id=<{$signup_data.id}>&action_id=<{$id|default:''}>&accept=1" class="btn btn-sm btn-warning" data-toggle="tooltip" title="<{$smarty.const._MD_TAD_SIGNUP_CHANGE_TO}><{$smarty.const._MD_TAD_SIGNUP_ACCEPT}>"><i class="fa fa-check" aria-hidden="true"></i></a>
                             <{/if}>
                             <{$smarty.const._MD_TAD_SIGNUP_NOT_ACCEPT}>
                         </div>
                     <{else}>
                         <div class="text-muted"><{$smarty.const._MD_TAD_SIGNUP_ACCEPT_NOT_YET}></div>
                         <{if $smarty.session.can_add && $uid == $now_uid}>
-                            <a href="<{$xoops_url}>/modules/tad_signup/index.php?op=tad_signup_data_accept&id=<{$signup_data.id}>&action_id=<{$id}>&accept=0" class="btn btn-sm btn-danger" data-toggle="tooltip" title="<{$smarty.const._MD_TAD_SIGNUP_NOT_ACCEPT}>"><i class="fa fa-times" aria-hidden="true"></i></a>
-                            <a href="<{$xoops_url}>/modules/tad_signup/index.php?op=tad_signup_data_accept&id=<{$signup_data.id}>&action_id=<{$id}>&accept=1" class="btn btn-sm btn-success" data-toggle="tooltip" title="<{$smarty.const._MD_TAD_SIGNUP_ACCEPT}>"><i class="fa fa-check" aria-hidden="true"></i></a>
+                            <a href="<{$xoops_url}>/modules/tad_signup/index.php?op=tad_signup_data_accept&id=<{$signup_data.id}>&action_id=<{$id|default:''}>&accept=0" class="btn btn-sm btn-danger" data-toggle="tooltip" title="<{$smarty.const._MD_TAD_SIGNUP_NOT_ACCEPT}>"><i class="fa fa-times" aria-hidden="true"></i></a>
+                            <a href="<{$xoops_url}>/modules/tad_signup/index.php?op=tad_signup_data_accept&id=<{$signup_data.id}>&action_id=<{$id|default:''}>&accept=1" class="btn btn-sm btn-success" data-toggle="tooltip" title="<{$smarty.const._MD_TAD_SIGNUP_ACCEPT}>"><i class="fa fa-check" aria-hidden="true"></i></a>
                         <{/if}>
                     <{/if}>
                 </td>
@@ -121,10 +121,10 @@
         <tr>
             <{foreach from=$statistics key=title item=options}>
                 <td>
-                    <b><{$title}></b>
+                    <b><{$title|default:''}></b>
                     <hr class="my-1">
                     <{foreach from=$options key=i item=count name=options}>
-                        <div><{$i}> : <{$count}></div>
+                        <div><{$i|default:''}> : <{$count|default:''}></div>
                     <{/foreach}>
                 </td>
             <{/foreach}>
@@ -142,16 +142,16 @@
                     <span class="input-group-text"><{$smarty.const._MD_TAD_SIGNUP_EXPORT_APPLY_LIST}><{$smarty.const._TAD_FOR}></span>
                 </div>
                 <div class="input-group-append input-group-btn">
-                    <a href="<{$xoops_url}>/modules/tad_signup/csv.php?id=<{$id}>&type=signup" class="btn btn-info"><i class="fa fa-file-text-o" aria-hidden="true"></i> CSV</a>
+                    <a href="<{$xoops_url}>/modules/tad_signup/csv.php?id=<{$id|default:''}>&type=signup" class="btn btn-info"><i class="fa fa-file-text-o" aria-hidden="true"></i> CSV</a>
                 </div>
                 <div class="input-group-append input-group-btn">
-                    <a href="<{$xoops_url}>/modules/tad_signup/excel.php?id=<{$id}>&type=signup" class="btn btn-success"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Excel</a>
+                    <a href="<{$xoops_url}>/modules/tad_signup/excel.php?id=<{$id|default:''}>&type=signup" class="btn btn-success"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Excel</a>
                 </div>
                 <div class="input-group-append input-group-btn">
-                    <a href="<{$xoops_url}>/modules/tad_signup/pdf.php?id=<{$id}>" class="btn btn-danger"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> PDF</a>
+                    <a href="<{$xoops_url}>/modules/tad_signup/pdf.php?id=<{$id|default:''}>" class="btn btn-danger"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> PDF</a>
                 </div>
                 <div class="input-group-append input-group-btn">
-                    <a href="<{$xoops_url}>/modules/tad_signup/word.php?id=<{$id}>" class="btn btn-primary"><i class="fa fa-file-word-o" aria-hidden="true"></i> Word</a>
+                    <a href="<{$xoops_url}>/modules/tad_signup/word.php?id=<{$id|default:''}>" class="btn btn-primary"><i class="fa fa-file-word-o" aria-hidden="true"></i> Word</a>
                 </div>
             </div>
         <{/if}>
@@ -162,10 +162,10 @@
                 </div>
                 <input type="file" name="csv" class="form-control" accept="text/csv">
                 <div class="input-group-append input-group-btn">
-                    <input type="hidden" name="id" value="<{$id}>">
+                    <input type="hidden" name="id" value="<{$id|default:''}>">
                     <input type="hidden" name="op" value="tad_signup_data_preview_csv">
                     <button type="submit" class="btn btn-primary"><{$smarty.const._MD_TAD_SIGNUP_IMPORT}> CSV</button>
-                    <a href="<{$xoops_url}>/modules/tad_signup/csv.php?id=<{$id}>" class="btn btn-secondary"><i class="fa fa-file-text-o" aria-hidden="true"></i> <{$smarty.const._MD_TAD_SIGNUP_DOWNLOAD}> CSV <{$smarty.const._MD_TAD_SIGNUP_IMPORT_FILE}></a>
+                    <a href="<{$xoops_url}>/modules/tad_signup/csv.php?id=<{$id|default:''}>" class="btn btn-secondary"><i class="fa fa-file-text-o" aria-hidden="true"></i> <{$smarty.const._MD_TAD_SIGNUP_DOWNLOAD}> CSV <{$smarty.const._MD_TAD_SIGNUP_IMPORT_FILE}></a>
                 </div>
             </div>
         </form>
@@ -177,10 +177,10 @@
                 </div>
                 <input type="file" name="excel" class="form-control" accept=".xlsx">
                 <div class="input-group-append input-group-btn">
-                    <input type="hidden" name="id" value="<{$id}>">
+                    <input type="hidden" name="id" value="<{$id|default:''}>">
                     <input type="hidden" name="op" value="tad_signup_data_preview_excel">
                     <button type="submit" class="btn btn-primary"><{$smarty.const._MD_TAD_SIGNUP_IMPORT}> Excel</button>
-                    <a href="<{$xoops_url}>/modules/tad_signup/excel.php?id=<{$id}>" class="btn btn-secondary"><i class="fa fa-file-excel-o" aria-hidden="true"></i> <{$smarty.const._MD_TAD_SIGNUP_DOWNLOAD}> Excel <{$smarty.const._MD_TAD_SIGNUP_IMPORT_FILE}></a>
+                    <a href="<{$xoops_url}>/modules/tad_signup/excel.php?id=<{$id|default:''}>" class="btn btn-secondary"><i class="fa fa-file-excel-o" aria-hidden="true"></i> <{$smarty.const._MD_TAD_SIGNUP_DOWNLOAD}> Excel <{$smarty.const._MD_TAD_SIGNUP_IMPORT_FILE}></a>
                 </div>
             </div>
         </form>

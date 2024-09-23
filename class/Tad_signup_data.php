@@ -234,7 +234,7 @@ class Tad_signup_data
         if ($action_id) {
             $sql = "select * from `" . $xoopsDB->prefix("tad_signup_data") . "` where `action_id`='$action_id' $and_accept order by `signup_date`";
         } else {
-            if (!$_SESSION['can_add'] or !$uid) {
+            if (isset($_SESSION['can_add']) && (!$_SESSION['can_add'] or !$uid)) {
                 $uid = $xoopsUser ? $xoopsUser->uid() : 0;
             }
             $sql = "select * from `" . $xoopsDB->prefix("tad_signup_data") . "` where `uid`='$uid' $and_accept order by `signup_date`";

@@ -44,7 +44,7 @@
     </tbody>
 </table>
 
-<{$bar}>
+<{$bar|default:''}>
 
 <{if $smarty.session.can_add|default:false}>
     <div class="bar">

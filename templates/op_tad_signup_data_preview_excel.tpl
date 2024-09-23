@@ -7,7 +7,7 @@
         <thead>
             <tr>
                 <{foreach from=$head item=title}>
-                    <th><{$title}></th>
+                    <th><{$title|default:''}></th>
                 <{/foreach}>
             </tr>
         </thead>
@@ -26,8 +26,8 @@
                                         <{foreach from=$options_arr item=val}>
                                             <div class="form-check-inline checkbox-inline">
                                                 <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" name="tdc[<{$i}>][<{$title}>][]" value="<{$val}>" <{if $val|in_array:$val_arr}>checked<{/if}>>
-                                                    <{$option}>
+                                                    <input class="form-check-input" type="checkbox" name="tdc[<{$i|default:''}>][<{$title|default:''}>][]" value="<{$val|default:''}>" <{if $val|in_array:$val_arr}>checked<{/if}>>
+                                                    <{$option|default:''}>
                                                 </label>
                                             </div>
                                         <{/foreach}>
@@ -35,21 +35,21 @@
                                         <{foreach from=$options_arr item=option}>
                                             <div class="form-check-inline radio-inline">
                                                 <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" name="tdc[<{$i}>][<{$title}>]" value="<{$option}>" <{if $option==$val}>checked<{/if}>>
-                                                    <{$option}>
+                                                    <input class="form-check-input" type="radio" name="tdc[<{$i|default:''}>][<{$title|default:''}>]" value="<{$option|default:''}>" <{if $option==$val}>checked<{/if}>>
+                                                    <{$option|default:''}>
                                                 </label>
                                             </div>
                                         <{/foreach}>
                                     <{elseif $input_type=="select"}>
-                                        <select name="tdc[<{$i}>][<{$title}>]" class="form-control validate[required]">
+                                        <select name="tdc[<{$i|default:''}>][<{$title|default:''}>]" class="form-control validate[required]">
                                             <{foreach from=$options_arr item=option}>
-                                                <option value="<{$option}>" <{if $option==$val}>selected<{/if}>><{$option}></option>
+                                                <option value="<{$option|default:''}>" <{if $option==$val}>selected<{/if}>><{$option|default:''}></option>
                                             <{/foreach}>
                                         </select>
                                     <{elseif $input_type=="const" || $input_type=="hidden"}>
-                                        <input type="hidden" name="tdc[<{$i}>][<{$title}>]" value="<{$val}>"><{$val}>
+                                        <input type="hidden" name="tdc[<{$i|default:''}>][<{$title|default:''}>]" value="<{$val|default:''}>"><{$val|default:''}>
                                     <{else}>
-                                        <input type="text" name="tdc[<{$i}>][<{$title}>]" value="<{$val}>" class="form-control form-control-sm">
+                                        <input type="text" name="tdc[<{$i|default:''}>][<{$title|default:''}>]" value="<{$val|default:''}>" class="form-control form-control-sm">
                                     <{/if}>
                                 </td>
                             <{/if}>
@@ -60,7 +60,7 @@
         </tbody>
     </table>
 
-    <{$token_form}>
+    <{$token_form|default:''}>
     <input type="hidden" name="id" value="<{$action.id}>">
     <input type="hidden" name="op" value="tad_signup_data_import_excel">
     <div class="bar">
