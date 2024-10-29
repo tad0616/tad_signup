@@ -20,3 +20,6 @@ define('_MI_TAD_SIGNUP_ONLY_ENABLE_DESC', '若是只會顯示可報名活動，�
 define('_MI_TAD_SIGNUP_ACTIONS_MANAGER', '活動管理');
 define('_MI_TAD_SIGNUP_PERMISSION_SETTING', '權限設定');
 define('_MI_TAD_SIGNUP_ADMIN', '活動報名管理');
+
+define('_MI_TAD_SIGNUP_CAN_SEND_MAIL', '是否寄發通知信？');
+define('_MI_TAD_SIGNUP_CAN_SEND_MAIL_DESC', '若系統無法寄信請關閉');

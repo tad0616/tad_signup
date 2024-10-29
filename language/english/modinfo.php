@@ -20,3 +20,6 @@ define('_MI_TAD_SIGNUP_ONLY_ENABLE_DESC', 'If only enrolable events will be show
 define('_MI_TAD_SIGNUP_ACTIONS_MANAGER', 'Event Management');
 define('_MI_TAD_SIGNUP_PERMISSION_SETTING', 'Permission Setting');
 define('_MI_TAD_SIGNUP_ADMIN', 'Event Registration Management');
+
+define('_MI_TAD_SIGNUP_CAN_SEND_MAIL', 'Are notification letters sent?');
+define('_MI_TAD_SIGNUP_CAN_SEND_MAIL_DESC', 'Close the system if you can't send mail.');

@@ -83,3 +83,5 @@ define('_MD_TAD_SIGNUP_ACCEPT_HEAD0', '<p>您於 %s 報名「%s」活動經審�
 define('_MD_TAD_SIGNUP_FAILED_TO_SEND', '通知信寄發失敗！');
 define('_MD_TAD_SIGNUP_UNABLE_TO_OPEN', '無法開啟');
 define('_MD_TAD_SIGNUP_EDITOR', '編輯器');
+
+define('_MD_TAD_SIGNUP_INDEX', '活動一覽');

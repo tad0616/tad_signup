@@ -9,7 +9,7 @@ $item_list = array(
 );
 $mid = $xoopsModule->mid();
 $perm_name = $xoopsModule->dirname();
-$formi = new XoopsGroupPermForm(_MA_TAD_SIGNUP_PERMISSION_SETTING, $mid, $perm_name, _MA_TAD_SIGNUP_CHECK_PERMISSIONS . '<br>');
+$formi = new XoopsGroupPermForm(_MA_TAD_SIGNUP_PERMISSION_SETTING, $mid, $perm_name, _MA_TAD_SIGNUP_CHECK_PERMISSIONS . '<br>', null, false);
 foreach ($item_list as $item_id => $item_name) {
     $formi->addItem($item_id, $item_name);
 }

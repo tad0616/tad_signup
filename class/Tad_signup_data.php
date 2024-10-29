@@ -79,21 +79,19 @@ class Tad_signup_data
         Utility::xoops_security_check();
 
         foreach ($_POST as $var_name => $var_val) {
-            $$var_name = $xoopsDB->escape($var_val);
+            $$var_name = $var_val;
         }
-        $action_id = (int) $action_id;
-        $uid = (int) $uid;
 
-        $sql = "insert into `" . $xoopsDB->prefix("tad_signup_data") . "` (
-        `action_id`,
-        `uid`,
-        `signup_date`
-        ) values(
-        '{$action_id}',
-        '{$uid}',
-        now()
-        )";
-        $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
+        $sql = 'INSERT INTO `' . $xoopsDB->prefix('tad_signup_data') . '` (
+            `action_id`,
+            `uid`,
+            `signup_date`
+        ) VALUES (
+            ?,
+            ?,
+            NOW()
+        )';
+        Utility::query($sql, 'ii', [$action_id, $uid]) or Utility::web_error($sql, __FILE__, __LINE__);
 
         //取得最後新增資料的流水編號
         $id = $xoopsDB->getInsertId();
@@ -159,17 +157,15 @@ class Tad_signup_data
         Utility::xoops_security_check();
 
         foreach ($_POST as $var_name => $var_val) {
-            $$var_name = $xoopsDB->escape($var_val);
+            $$var_name = $var_val;
         }
-        $action_id = (int) $action_id;
-        $uid = (int) $uid;
 
         $now_uid = $xoopsUser ? $xoopsUser->uid() : 0;
 
-        $sql = "update `" . $xoopsDB->prefix("tad_signup_data") . "` set
-        `signup_date` = now()
-        where `id` = '$id' and `uid` = '$now_uid'";
-        if ($xoopsDB->queryF($sql)) {
+        $sql = 'UPDATE `' . $xoopsDB->prefix('tad_signup_data') . '` SET
+        `signup_date` = NOW()
+        WHERE `id` = ? AND `uid` = ?';
+        if (Utility::query($sql, 'ii', [$id, $now_uid])) {
             $TadDataCenter = new TadDataCenter('tad_signup');
             $TadDataCenter->set_col('id', $id);
             $TadDataCenter->saveData();
@@ -191,9 +187,8 @@ class Tad_signup_data
 
         $now_uid = $xoopsUser ? $xoopsUser->uid() : 0;
 
-        $sql = "delete from `" . $xoopsDB->prefix("tad_signup_data") . "`
-        where `id` = '{$id}' and `uid`='$now_uid'";
-        if ($xoopsDB->queryF($sql)) {
+        $sql = 'DELETE FROM `' . $xoopsDB->prefix('tad_signup_data') . '` WHERE `id` = ? AND `uid` = ?';
+        if (Utility::query($sql, 'ii', [$id, $now_uid])) {
             $TadDataCenter = new TadDataCenter('tad_signup');
             $TadDataCenter->set_col('id', $id);
             $TadDataCenter->delData();
@@ -214,11 +209,12 @@ class Tad_signup_data
             return;
         }
 
-        $and_uid = $uid ? "and `uid`='$uid'" : '';
+        $and_uid = $uid ? "AND `uid`=?" : '';
 
-        $sql = "select * from `" . $xoopsDB->prefix("tad_signup_data") . "`
-        where `id` = '{$id}' $and_uid";
-        $result = $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
+        $sql = 'SELECT * FROM `' . $xoopsDB->prefix('tad_signup_data') . '`
+            WHERE `id` = ? ' . $and_uid;
+        $result = Utility::query($sql, $uid ? 'ii' : 'i', $uid ? [$id, $uid] : [$id]) or Utility::web_error($sql, __FILE__, __LINE__);
+
         $data = $xoopsDB->fetchArray($result);
         return $data;
     }
@@ -229,18 +225,19 @@ class Tad_signup_data
         global $xoopsDB, $xoopsUser;
         $myts = \MyTextSanitizer::getInstance();
 
-        $and_accept = $only_accept ? "and `accept`='1'" : '';
+        $and_accept = $only_accept ? "AND `accept`='1'" : '';
 
         if ($action_id) {
-            $sql = "select * from `" . $xoopsDB->prefix("tad_signup_data") . "` where `action_id`='$action_id' $and_accept order by `signup_date`";
+            $sql = 'SELECT * FROM `' . $xoopsDB->prefix('tad_signup_data') . '` WHERE `action_id`=? ' . $and_accept . ' ORDER BY `signup_date`';
+            $result = Utility::query($sql, 'i', [$action_id]) or Utility::web_error($sql, __FILE__, __LINE__);
         } else {
             if (isset($_SESSION['can_add']) && (!$_SESSION['can_add'] or !$uid)) {
                 $uid = $xoopsUser ? $xoopsUser->uid() : 0;
             }
-            $sql = "select * from `" . $xoopsDB->prefix("tad_signup_data") . "` where `uid`='$uid' $and_accept order by `signup_date`";
+            $sql = 'SELECT * FROM `' . $xoopsDB->prefix('tad_signup_data') . '` WHERE `uid` = ? ' . $and_accept . ' ORDER BY `signup_date`';
+            $result = Utility::query($sql, 'i', [$uid]) or Utility::web_error($sql, __FILE__, __LINE__);
         }
 
-        $result = $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
         $data_arr = [];
 
         $TadDataCenter = new TadDataCenter('tad_signup');
@@ -304,79 +301,79 @@ class Tad_signup_data
             redirect_header($_SERVER['PHP_SELF'], 3, _TAD_PERMISSION_DENIED);
         }
 
-        $id = (int) $id;
-        $accept = (int) $accept;
+        $sql = 'UPDATE `' . $xoopsDB->prefix('tad_signup_data') . '` SET `accept` = ? WHERE `id` = ?';
+        Utility::query($sql, 'si', [$accept, $id]) or Utility::web_error($sql, __FILE__, __LINE__);
 
-        $sql = "update `" . $xoopsDB->prefix("tad_signup_data") . "` set
-        `accept` = '$accept'
-        where `id` = '$id'";
-        $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
     }
 
     //立即寄出
     public static function send($title = _MD_TAD_SIGNUP_NO_TITLE, $content = _MD_TAD_SIGNUP_NO_CONTENT, $email = "")
     {
-        global $xoopsUser;
-        if (empty($email)) {
-            $email = $xoopsUser->email();
+        global $xoopsUser, $xoopsModuleConfig;
+        if ($xoopsModuleConfig['can_send_mail']) {
+            if (empty($email)) {
+                $email = $xoopsUser->email();
+            }
+            $xoopsMailer = xoops_getMailer();
+            $xoopsMailer->multimailer->ContentType = "text/html";
+            $xoopsMailer->addHeaders("MIME-Version: 1.0");
+            $header = '';
+            return $xoopsMailer->sendMail($email, $title, $content, $header);
         }
-        $xoopsMailer = xoops_getMailer();
-        $xoopsMailer->multimailer->ContentType = "text/html";
-        $xoopsMailer->addHeaders("MIME-Version: 1.0");
-        $header = '';
-        return $xoopsMailer->sendMail($email, $title, $content, $header);
     }
 
     // 產生通知信
     public static function mail($id, $type, $signup = [])
     {
-        global $xoopsUser;
-        $id = (int) $id;
-        if (empty($id)) {
-            redirect_header($_SERVER['PHP_SELF'], 3, _MD_TAD_SIGNUP_UNABLE_TO_SEND);
-        }
-        $signup = $signup ? $signup : self::get($id);
-
-        $now = date("Y-m-d H:i:s");
-        $name = $xoopsUser->name();
-        $name = $name ? $name : $xoopsUser->uname();
-
-        $action = Tad_signup_actions::get($signup['action_id']);
-
-        $member_handler = xoops_getHandler('member');
-        $admUser = $member_handler->getUser($action['uid']);
-        $adm_email = $admUser->email();
-
-        if ($type == 'destroy') {
-            $title = sprintf(_MD_TAD_SIGNUP_DESTROY_TITLE, $action['title']);
-            $head = sprintf(_MD_TAD_SIGNUP_DESTROY_HEAD, $signup['signup_date'], $action['title'], $now, $name);
-            $foot = _MD_TAD_SIGNUP_DESTROY_FOOT . XOOPS_URL . "/modules/tad_signup/index.php?op=tad_signup_data_create&action_id={$action['id']}";
-        } elseif ($type == 'store') {
-            $title = sprintf(_MD_TAD_SIGNUP_STORE_TITLE, $action['title']);
-            $head = sprintf(_MD_TAD_SIGNUP_STORE_HEAD, $signup['signup_date'], $action['title'], $now, $name);
-            $foot = _MD_TAD_SIGNUP_FOOT . XOOPS_URL . "/modules/tad_signup/index.php?id={$signup['action_id']}";
-        } elseif ($type == 'update') {
-            $title = sprintf(_MD_TAD_SIGNUP_UPDATE_TITLE, $action['title']);
-            $head = sprintf(_MD_TAD_SIGNUP_UPDATE_HEAD, $signup['signup_date'], $action['title'], $now, $name);
-            $foot = _MD_TAD_SIGNUP_FOOT . XOOPS_URL . "/modules/tad_signup/index.php?id={$signup['action_id']}";
-        } elseif ($type == 'accept') {
-            $title = sprintf(_MD_TAD_SIGNUP_ACCEPT_TITLE, $action['title']);
-            if ($signup['accept'] == 1) {
-                $head = sprintf(_MD_TAD_SIGNUP_ACCEPT_HEAD1, $signup['signup_date'], $action['title']);
-            } else {
-                $head = sprintf(_MD_TAD_SIGNUP_ACCEPT_HEAD0, $signup['signup_date'], $action['title']);
+        global $xoopsUser, $xoopsModuleConfig;
+        if ($xoopsModuleConfig['can_send_mail']) {
+            $id = (int) $id;
+            if (empty($id)) {
+                redirect_header($_SERVER['PHP_SELF'], 3, _MD_TAD_SIGNUP_UNABLE_TO_SEND);
             }
-            $foot = _MD_TAD_SIGNUP_FOOT . XOOPS_URL . "/modules/tad_signup/index.php?id={$signup['action_id']}";
+            $signup = $signup ? $signup : self::get($id);
 
-            $signupUser = $member_handler->getUser($signup['uid']);
-            $email = $signupUser->email();
-        }
+            $now = date("Y-m-d H:i:s");
+            $name = $xoopsUser->name();
+            $name = $name ? $name : $xoopsUser->uname();
 
-        $content = self::mk_content($id, $head, $foot, $action);
-        if (!self::send($title, $content, $email)) {
-            redirect_header($_SERVER['PHP_SELF'], 3, _MD_TAD_SIGNUP_FAILED_TO_SEND);
+            $action = Tad_signup_actions::get($signup['action_id']);
+
+            $member_handler = xoops_getHandler('member');
+            $admUser = $member_handler->getUser($action['uid']);
+            $adm_email = $admUser->email();
+
+            if ($type == 'destroy') {
+                $title = sprintf(_MD_TAD_SIGNUP_DESTROY_TITLE, $action['title']);
+                $head = sprintf(_MD_TAD_SIGNUP_DESTROY_HEAD, $signup['signup_date'], $action['title'], $now, $name);
+                $foot = _MD_TAD_SIGNUP_DESTROY_FOOT . XOOPS_URL . "/modules/tad_signup/index.php?op=tad_signup_data_create&action_id={$action['id']}";
+            } elseif ($type == 'store') {
+                $title = sprintf(_MD_TAD_SIGNUP_STORE_TITLE, $action['title']);
+                $head = sprintf(_MD_TAD_SIGNUP_STORE_HEAD, $signup['signup_date'], $action['title'], $now, $name);
+                $foot = _MD_TAD_SIGNUP_FOOT . XOOPS_URL . "/modules/tad_signup/index.php?id={$signup['action_id']}";
+            } elseif ($type == 'update') {
+                $title = sprintf(_MD_TAD_SIGNUP_UPDATE_TITLE, $action['title']);
+                $head = sprintf(_MD_TAD_SIGNUP_UPDATE_HEAD, $signup['signup_date'], $action['title'], $now, $name);
+                $foot = _MD_TAD_SIGNUP_FOOT . XOOPS_URL . "/modules/tad_signup/index.php?id={$signup['action_id']}";
+            } elseif ($type == 'accept') {
+                $title = sprintf(_MD_TAD_SIGNUP_ACCEPT_TITLE, $action['title']);
+                if ($signup['accept'] == 1) {
+                    $head = sprintf(_MD_TAD_SIGNUP_ACCEPT_HEAD1, $signup['signup_date'], $action['title']);
+                } else {
+                    $head = sprintf(_MD_TAD_SIGNUP_ACCEPT_HEAD0, $signup['signup_date'], $action['title']);
+                }
+                $foot = _MD_TAD_SIGNUP_FOOT . XOOPS_URL . "/modules/tad_signup/index.php?id={$signup['action_id']}";
+
+                $signupUser = $member_handler->getUser($signup['uid']);
+                $email = $signupUser->email();
+            }
+
+            $content = self::mk_content($id, $head, $foot, $action);
+            if (!self::send($title, $content, $email)) {
+                redirect_header($_SERVER['PHP_SELF'], 3, _MD_TAD_SIGNUP_FAILED_TO_SEND);
+            }
+            self::send($title, $content, $adm_email);
         }
-        self::send($title, $content, $adm_email);
     }
 
     // 產生通知信內容
@@ -498,18 +495,19 @@ class Tad_signup_data
         $TadDataCenter = new TadDataCenter('tad_signup');
 
         foreach ($_POST['tdc'] as $tdc) {
-            $sql = "insert into `" . $xoopsDB->prefix("tad_signup_data") . "` (
-            `action_id`,
-            `uid`,
-            `signup_date`,
-            `accept`
-            ) values(
-            '{$action_id}',
-            '{$uid}',
-            now(),
-            '1'
-            )";
-            $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
+            $sql = 'INSERT INTO `' . $xoopsDB->prefix('tad_signup_data') . '` (
+                `action_id`,
+                `uid`,
+                `signup_date`,
+                `accept`
+            ) VALUES(
+                ?,
+                ?,
+                NOW(),
+                ?
+            )';
+            Utility::query($sql, 'iis', [$action_id, $uid, '1']) or Utility::web_error($sql, __FILE__, __LINE__);
+
             $id = $xoopsDB->getInsertId();
 
             $TadDataCenter->set_col('id', $id);

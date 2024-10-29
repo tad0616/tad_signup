@@ -90,35 +90,32 @@ class Tad_signup_actions
         Utility::xoops_security_check();
 
         foreach ($_POST as $var_name => $var_val) {
-            $$var_name = $xoopsDB->escape($var_val);
+            $$var_name = $var_val;
         }
-        $uid = (int) $uid;
-        $number = (int) $number;
-        $enable = (int) $enable;
-        $candidate = (int) $candidate;
-
-        $sql = "insert into `" . $xoopsDB->prefix("tad_signup_actions") . "` (
-        `title`,
-        `detail`,
-        `action_date`,
-        `end_date`,
-        `number`,
-        `setup`,
-        `uid`,
-        `enable`,
-        `candidate`
-        ) values(
-        '{$title}',
-        '{$detail}',
-        '{$action_date}',
-        '{$end_date}',
-        '{$number}',
-        '{$setup}',
-        '{$uid}',
-        '{$enable}',
-        '{$candidate}'
-        )";
-        $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
+        $sql = 'INSERT INTO `' . $xoopsDB->prefix('tad_signup_actions') . '` (
+            `title`,
+            `detail`,
+            `action_date`,
+            `end_date`,
+            `number`,
+            `setup`,
+            `uid`,
+            `enable`,
+            `candidate`
+        ) VALUES (
+            ?, ?, ?, ?, ?, ?, ?, ?, ?
+        )';
+        Utility::query($sql, 'ssssisisi', [
+            $title,
+            $detail,
+            $action_date,
+            $end_date,
+            $number,
+            $setup,
+            $uid,
+            $enable,
+            $candidate,
+        ]) or Utility::web_error($sql, __FILE__, __LINE__);
 
         //取得最後新增資料的流水編號
         $id = $xoopsDB->getInsertId();
@@ -177,30 +174,25 @@ class Tad_signup_actions
         Utility::xoops_security_check();
 
         foreach ($_POST as $var_name => $var_val) {
-            $$var_name = $xoopsDB->escape($var_val);
+            $$var_name = $var_val;
         }
-        $uid = (int) $uid;
-        $number = (int) $number;
-        $enable = (int) $enable;
-        $candidate = (int) $candidate;
-
         $now_uid = $xoopsUser ? $xoopsUser->uid() : 0;
         if ($uid != $now_uid && !$_SESSION['tad_signup_adm']) {
             redirect_header($_SERVER['PHP_SELF'], 3, _TAD_PERMISSION_DENIED);
         }
 
-        $sql = "update `" . $xoopsDB->prefix("tad_signup_actions") . "` set
-        `title` = '{$title}',
-        `detail` = '{$detail}',
-        `action_date` = '{$action_date}',
-        `end_date` = '{$end_date}',
-        `number` = '{$number}',
-        `setup` = '{$setup}',
-        `uid` = '{$uid}',
-        `enable` = '{$enable}',
-        `candidate` = '{$candidate}'
-        where `id` = '$id'";
-        $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
+        $sql = 'UPDATE `' . $xoopsDB->prefix('tad_signup_actions') . '` SET
+        `title` = ?,
+        `detail` = ?,
+        `action_date` = ?,
+        `end_date` = ?,
+        `number` = ?,
+        `setup` = ?,
+        `uid` = ?,
+        `enable` = ?,
+        `candidate` = ?
+        WHERE `id` = ?';
+        Utility::query($sql, 'ssssisisii', [$title, $detail, $action_date, $end_date, $number, $setup, $uid, $enable, $candidate, $id]) or Utility::web_error($sql, __FILE__, __LINE__);
 
         $TadUpFiles = new TadUpFiles('tad_signup');
         $TadUpFiles->set_col('action_id', $id);
@@ -226,9 +218,8 @@ class Tad_signup_actions
             redirect_header($_SERVER['PHP_SELF'], 3, _TAD_PERMISSION_DENIED);
         }
 
-        $sql = "delete from `" . $xoopsDB->prefix("tad_signup_actions") . "`
-        where `id` = '{$id}'";
-        $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
+        $sql = 'DELETE FROM `' . $xoopsDB->prefix('tad_signup_actions') . '` WHERE `id` = ?';
+        Utility::query($sql, 'i', [$id]) or Utility::web_error($sql, __FILE__, __LINE__);
 
         $TadUpFiles = new TadUpFiles('tad_signup');
         $TadUpFiles->set_col('action_id', $id);
@@ -244,9 +235,9 @@ class Tad_signup_actions
             return;
         }
 
-        $sql = "select * from `" . $xoopsDB->prefix("tad_signup_actions") . "`
-        where `id` = '{$id}'";
-        $result = $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
+        $sql = 'SELECT * FROM `' . $xoopsDB->prefix('tad_signup_actions') . '` WHERE `id` = ?';
+        $result = Utility::query($sql, 'i', [$id]) or Utility::web_error($sql, __FILE__, __LINE__);
+
         $data = $xoopsDB->fetchArray($result);
         if ($filter) {
             $myts = \MyTextSanitizer::getInstance();
@@ -310,29 +301,28 @@ class Tad_signup_actions
         $uid = $xoopsUser->uid();
         $end_date = date('Y-m-d 17:30:00', strtotime('+2 weeks'));
         $action_date = date('Y-m-d 09:00:00', strtotime('+16 days'));
-
-        $sql = "insert into `" . $xoopsDB->prefix("tad_signup_actions") . "` (
-        `title`,
-        `detail`,
-        `action_date`,
-        `end_date`,
-        `number`,
-        `setup`,
-        `uid`,
-        `enable`,
-        `candidate`
-        ) values(
-        '{$action['title']}_copy',
-        '{$action['detail']}',
-        '{$action_date}',
-        '{$end_date}',
-        '{$action['number']}',
-        '{$action['setup']}',
-        '{$uid}',
-        '0',
-        '{$action['candidate']}'
-        )";
-        $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
+        $sql = 'INSERT INTO `' . $xoopsDB->prefix('tad_signup_actions') . '` (
+            `title`,
+            `detail`,
+            `action_date`,
+            `end_date`,
+            `number`,
+            `setup`,
+            `uid`,
+            `enable`,
+            `candidate`
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        Utility::query($sql, 'ssssisisi', [
+            $action['title'] . '_copy',
+            $action['detail'],
+            $action_date,
+            $end_date,
+            $action['number'],
+            $action['setup'],
+            $uid,
+            '0',
+            $action['candidate'],
+        ]) or Utility::web_error($sql, __FILE__, __LINE__);
 
         //取得最後新增資料的流水編號
         $id = $xoopsDB->getInsertId();

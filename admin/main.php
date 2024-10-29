@@ -64,6 +64,6 @@ switch ($op) {
 /*-----------秀出結果區--------------*/
 $xoopsTpl->assign('now_op', $op);
 $xoTheme->addStylesheet('/modules/tadtools/css/font-awesome/css/font-awesome.css');
-$xoTheme->addStylesheet(XOOPS_URL . '/modules/tadtools/css/xoops_adm4.css');
-$xoTheme->addStylesheet(XOOPS_URL . '/modules/tad_signup/css/module.css');
+$xoTheme->addStylesheet('modules/tadtools/css/xoops_adm4.css');
+$xoTheme->addStylesheet('modules/tad_signup/css/module.css');
 require_once __DIR__ . '/footer.php';

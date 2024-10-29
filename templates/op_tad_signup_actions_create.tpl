@@ -3,7 +3,7 @@
 <form action="index.php" method="post" id="myForm" enctype="multipart/form-data" class="form-horizontal">
 
     <div class="form-group row mb-3">
-        <label class="col-sm-2 control-label col-form-label text-md-right">
+        <label class="col-sm-2 control-label col-form-label text-md-right text-md-end">
             <{$smarty.const._MD_TAD_SIGNUP_TITLE}>
         </label>
         <div class="col-sm-10">
@@ -12,7 +12,7 @@
     </div>
 
     <div class="form-group row mb-3">
-        <label class="col-sm-2 control-label col-form-label text-md-right">
+        <label class="col-sm-2 control-label col-form-label text-md-right text-md-end">
             <{$smarty.const._MD_TAD_SIGNUP_DETAIL}>
         </label>
         <div class="col-sm-10">
@@ -21,7 +21,7 @@
     </div>
 
     <div class="form-group row mb-3">
-        <label class="col-sm-2 control-label col-form-label text-md-right">
+        <label class="col-sm-2 control-label col-form-label text-md-right text-md-end">
             <{$smarty.const._MD_TAD_SIGNUP_END_DATE_COL}>
         </label>
         <div class="col-sm-10">
@@ -30,7 +30,7 @@
     </div>
 
     <div class="form-group row mb-3">
-        <label class="col-sm-2 control-label col-form-label text-md-right">
+        <label class="col-sm-2 control-label col-form-label text-md-right text-md-end">
             <{$smarty.const._MD_TAD_SIGNUP_ACTION_DATE}>
         </label>
         <div class="col-sm-10">
@@ -39,7 +39,7 @@
     </div>
 
     <div class="form-group row mb-3">
-        <label class="col-sm-2 control-label col-form-label text-md-right">
+        <label class="col-sm-2 control-label col-form-label text-md-right text-md-end">
             <{$smarty.const._MD_TAD_SIGNUP_NUMBER}>
         </label>
         <div class="col-sm-10">
@@ -48,7 +48,7 @@
     </div>
 
     <div class="form-group row mb-3">
-        <label class="col-sm-2 control-label col-form-label text-md-right">
+        <label class="col-sm-2 control-label col-form-label text-md-right text-md-end">
             <{$smarty.const._MD_TAD_SIGNUP_CANDIDATES_QUOTA}>
         </label>
         <div class="col-sm-10">
@@ -57,7 +57,7 @@
     </div>
 
     <div class="form-group row mb-3">
-        <label class="col-sm-2 control-label col-form-label text-md-right">
+        <label class="col-sm-2 control-label col-form-label text-md-right text-md-end">
             <div><{$smarty.const._MD_TAD_SIGNUP_SETUP}></div>
             <div onClick="popupwindow('eguide_code.php', 'eguide code', 1024, 600)" style="cursor: pointer; color: rgb(45, 167, 110);">example</div>
             <div onClick="popupwindow('eguide_editor.php', 'eguide editor', 1024, 600)" style="cursor: pointer; color: rgb(102, 19, 128);"><i class="fa fa-pencil" aria-hidden="true"></i> <{$smarty.const._MD_TAD_SIGNUP_EDITOR}></div>
@@ -68,7 +68,7 @@
     </div>
 
     <div class="form-group row mb-3">
-        <label class="col-sm-2 control-label col-form-label text-md-right">
+        <label class="col-sm-2 control-label col-form-label text-md-right text-md-end">
             <{$smarty.const._MD_TAD_SIGNUP_ENABLE}>
         </label>
         <div class="col-sm-10" style="padding-top: 8px;">
@@ -88,7 +88,7 @@
     </div>
 
     <div class="form-group row mb-3">
-        <label class="col-sm-2 control-label col-form-label text-md-right">
+        <label class="col-sm-2 control-label col-form-label text-md-right text-md-end">
             <{$smarty.const._MD_TAD_SIGNUP_UPLOADS}>
         </label>
         <div class="col-sm-10">

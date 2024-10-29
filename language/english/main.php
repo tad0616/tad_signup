@@ -83,3 +83,5 @@ define('_MD_TAD_SIGNUP_ACCEPT_HEAD0', '<p>Your application for the "%s" event in
 define('_MD_TAD_SIGNUP_FAILED_TO_SEND', 'Notification letter failed to be sent!');
 define('_MD_TAD_SIGNUP_UNABLE_TO_OPEN', 'Unable to open');
 define('_MD_TAD_SIGNUP_EDITOR', 'Editor');
+
+define('_MD_TAD_SIGNUP_INDEX', 'Activities');

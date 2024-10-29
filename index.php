@@ -158,7 +158,7 @@ switch ($op) {
 
 /*-----------秀出結果區--------------*/
 unset($_SESSION['api_mode']);
-$xoopsTpl->assign('toolbar', Utility::toolbar_bootstrap($interface_menu));
+$xoopsTpl->assign('toolbar', Utility::toolbar_bootstrap($interface_menu, false, $interface_icon));
 $xoopsTpl->assign('now_op', $op);
-$xoTheme->addStylesheet(XOOPS_URL . '/modules/tad_signup/css/module.css');
+$xoTheme->addStylesheet('modules/tad_signup/css/module.css');
 require_once XOOPS_ROOT_PATH . '/footer.php';
