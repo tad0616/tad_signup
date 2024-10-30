@@ -1,10 +1,9 @@
 <?php
 use XoopsModules\Tadtools\Utility;
 //載入XOOPS主設定檔（必要）
-require_once '../../mainfile.php';
-require_once 'preloads/autoloader.php';
-//載入自訂的共同函數檔
-require_once 'function.php';
+
+require_once dirname(dirname(__DIR__)) . '/mainfile.php';
+// require_once __DIR__ . '/preloads/autoloader.php';
 
 //判斷是否對該模組有管理權限 $_SESSION['tad_signup_adm']
 if (!isset($_SESSION['tad_signup_adm'])) {

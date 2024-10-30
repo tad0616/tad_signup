@@ -5,7 +5,6 @@ use XoopsModules\Tad_signup\Tad_signup_actions;
 /*-----------引入檔案區--------------*/
 $GLOBALS['xoopsOption']['template_main'] = 'tad_signup_admin.tpl';
 require_once __DIR__ . '/header.php';
-require_once dirname(__DIR__) . '/function.php';
 $_SESSION['tad_signup_adm'] = true;
 $_SESSION['can_add'] = true;
 
