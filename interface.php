@@ -2,7 +2,7 @@
 use XoopsModules\Tadtools\Utility;
 //判斷是否對該模組有管理權限 $_SESSION['tad_signup_adm']
 if (!isset($_SESSION['tad_signup_adm'])) {
-    $_SESSION['tad_signup_adm'] = ($xoopsUser) ? $xoopsUser->isAdmin() : false;
+    $_SESSION['tad_signup_adm'] = isset($xoopsUser) && \is_object($xoopsUser) ? $xoopsUser->isAdmin() : false;
 }
 
 // 判斷有無開設活動的權限

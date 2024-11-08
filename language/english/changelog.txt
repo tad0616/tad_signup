@@ -1,21 +1,28 @@
-Tad Signup 1.3 (Released on 2022-08-13)
+Tad Signup 2.0 (released on 2024-11-11)
 ====================================
-1. CSS reduce the introduction of external style files
-2. Fix font
+1. Support XOOPS 2.5.11
+2. Support PHP8.1.x
+3. Use $xoopsDB->escape() instead of $myts->addSlashes()
+4. Database syntax parameterization
 
-Tad Signup 1.2 (Released on 2022-01-28)
+Tad Signup 1.3 (released on 2022-08-13)
 ====================================
-1. Add form editor
-2. Fix the problem of file can not be downloaded
-3. Fix the preview interface when importing
-4. Avoid PDF sign-in form being cut in half
+1. CSS reduces the introduction of external style files
+2. Correct font
+
+Tad Signup 1.2 (released on 2022-01-28)
+====================================
+1. Join the form editor
+2. Fixed the problem that files cannot be downloaded
+3. Correct the preview interface when importing
+4. Prevent the PDF sign-in form from being cut in half
 5. Support BootStrap5
 
-Tad Signup 1.1 (Released 2021-08-24)
+Tad Signup 1.1 (released on 2021-08-24)
 ====================================
-1.Search function security correction
+1. Security fixes for search function
 
-Tad Signup 1.0 (Released 2021/08/15)
+Tad Signup 1.0 (released on 2021/08/15)
 ===========================================
-1.Module to create events for users to sign up
+1. A module that can create events for users to sign up for
 2. Officially released

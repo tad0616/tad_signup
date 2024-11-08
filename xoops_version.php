@@ -16,14 +16,14 @@ $modversion['image'] = 'images/logo.png';
 $modversion['dirname'] = basename(dirname(__FILE__));
 
 //---模組狀態資訊---//
-$modversion['release_date'] = '2022-08-13';
+$modversion['release_date'] = '2024-11-11';
 $modversion['module_website_url'] = 'https://github.com/tad0616/tad_signup';
 $modversion['module_website_name'] = 'Tad Signup GitHub';
 $modversion['module_status'] = 'release';
 $modversion['author_website_url'] = 'https://tad0616.net';
 $modversion['author_website_name'] = _MI_TAD_SIGNUP_AUTHOR_WEBSITE_NAME;
 $modversion['min_php'] = 5.4;
-$modversion['min_xoops'] = '2.5';
+$modversion['min_xoops'] = '2.5.10';
 
 //---paypal資訊---//
 $modversion['paypal'][] = [
