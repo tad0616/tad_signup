@@ -63,9 +63,9 @@ $modversion['templates'] = [
 //---搜尋---//
 $modversion['hasSearch'] = 1;
 $modversion['search'] = ['file' => 'include/search.php', 'func' => 'tad_signup_search'];
-//---區塊設定---//
+//---區塊設定 (索引為固定值，若欲刪除區塊記得補上索引，避免區塊重複)---//
 $modversion['blocks'] = [
-    [
+    1 => [
         'file' => 'action_list.php',
         'name' => _MI_TAD_SIGNUP_ACTION_LIST_NAME,
         'description' => _MI_TAD_SIGNUP_ACTION_LIST_DESCRIPTION,
@@ -74,7 +74,7 @@ $modversion['blocks'] = [
         'edit_func' => 'action_list_edit',
         'options' => '5|, `action_date` desc',
     ],
-    [
+    2 => [
         'file' => 'action_signup.php',
         'name' => _MI_TAD_SIGNUP_ACTION_SIGNUP_NAME,
         'description' => _MI_TAD_SIGNUP_ACTION_SIGNUP_DESCRIPTION,
