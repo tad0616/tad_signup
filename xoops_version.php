@@ -16,7 +16,7 @@ $modversion['image'] = 'images/logo.png';
 $modversion['dirname'] = basename(dirname(__FILE__));
 
 //---模組狀態資訊---//
-$modversion['release_date'] = '2024-11-18';
+$modversion['release_date'] = '2024-12-12';
 $modversion['module_website_url'] = 'https://github.com/tad0616/tad_signup';
 $modversion['module_website_name'] = 'Tad Signup GitHub';
 $modversion['module_status'] = 'release';

@@ -17,7 +17,7 @@
     <h4 class="my">
         <small>
             <div><i class="fa fa-calendar" aria-hidden="true"></i> <{$smarty.const._MB_TAD_SIGNUP_ACTION_DATE}><{$smarty.const._TAD_FOR}><{$block.action_date|default:''|substr:0:-3}></div>
-            <div><i class="fa fa-calendar-check-o" aria-hidden="true"></i> <{$smarty.const._MB_TAD_SIGNUP_END_DATE}><{$smarty.const._TAD_FOR}><{$block.end_date|default:''|substr:0:-3}></div>
+            <div><i class="fa fa-calendar-check" aria-hidden="true"></i> <{$smarty.const._MB_TAD_SIGNUP_END_DATE}><{$smarty.const._TAD_FOR}><{$block.end_date|default:''|substr:0:-3}></div>
             <div>
                 <i class="fa fa-users" aria-hidden="true"></i> <{$smarty.const._MB_TAD_SIGNUP_STATUS}><{$smarty.const._TAD_FOR}><{$block.signup_count|default:0}>/<{$block.number|default:0}>
                 <{if $block.candidate|default:false}><span data-toggle="tooltip" title="<{$smarty.const._MB_TAD_SIGNUP_CANDIDATES_QUOTA}>">(<{$block.candidate|default:''}>)</span><{/if}>

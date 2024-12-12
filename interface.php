@@ -12,7 +12,7 @@ if (!isset($_SESSION['can_add'])) {
 
 //回模組首頁
 $interface_menu[_MD_TAD_SIGNUP_INDEX] = "index.php";
-$interface_icon[_MD_TAD_SIGNUP_INDEX] = "fa-check-square-o";
+$interface_icon[_MD_TAD_SIGNUP_INDEX] = "fa-check-square";
 
 $interface_menu[_MD_TAD_SIGNUP_MY_RECORD] = "my_signup.php";
 $interface_icon[_MD_TAD_SIGNUP_MY_RECORD] = "fa-bars";

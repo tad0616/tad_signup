@@ -22,7 +22,7 @@ class Tad_signup_api extends SimpleRest
         }
 
         if ($this->token) {
-            $User = $this->getXoopsSUser($this->token);
+            $User = $this->getXoopsUser($this->token);
             $this->uid = (int) $User['uid'];
             $this->groups = $User['groups'];
             $this->user = $User['user'];

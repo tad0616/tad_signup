@@ -24,7 +24,7 @@ function xoops_module_install_tad_signup(XoopsModule $module)
     Utility::mk_dir(XOOPS_ROOT_PATH . "/uploads/tad_signup/image");
     Utility::mk_dir(XOOPS_ROOT_PATH . "/uploads/tad_signup/image/.thumbs");
 
-    $groupid = Update::mk_group(_MI_TAD_SIGNUP_ADMIN);
+    $groupid = Utility::mk_group(_MI_TAD_SIGNUP_ADMIN);
     $perm_handler = xoops_getHandler('groupperm');
     $perm = $perm_handler->create();
     $perm->setVar('gperm_groupid', $groupid);

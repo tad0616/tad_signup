@@ -26,7 +26,7 @@
 <h3 class="my">
     <{$smarty.const._MD_TAD_SIGNUP_APPLIED_DATA}>
     <small>
-        <i class="fa fa-calendar-check-o" aria-hidden="true"></i> <{$smarty.const._MD_TAD_SIGNUP_END_DATE_COL}><{$smarty.const._TAD_FOR}><{$end_date|default:''}>
+        <i class="fa fa-calendar-check" aria-hidden="true"></i> <{$smarty.const._MD_TAD_SIGNUP_END_DATE_COL}><{$smarty.const._TAD_FOR}><{$end_date|default:''}>
         <i class="fa fa-users" aria-hidden="true"></i> <{$smarty.const._MD_TAD_SIGNUP_APPLY_MAX}><{$smarty.const._TAD_FOR}><{$number|default:''}>
         <{if $candidate|default:false}><span data-toggle="tooltip" title="<{$smarty.const._MD_TAD_SIGNUP_CANDIDATES_QUOTA}>">(<{$candidate|default:''}>)</span><{/if}>
     </small>
@@ -142,16 +142,16 @@
                     <span class="input-group-text"><{$smarty.const._MD_TAD_SIGNUP_EXPORT_APPLY_LIST}><{$smarty.const._TAD_FOR}></span>
                 </div>
                 <div class="input-group-append input-group-btn">
-                    <a href="<{$xoops_url}>/modules/tad_signup/csv.php?id=<{$id|default:''}>&type=signup" class="btn btn-info"><i class="fa fa-file-text-o" aria-hidden="true"></i> CSV</a>
+                    <a href="<{$xoops_url}>/modules/tad_signup/csv.php?id=<{$id|default:''}>&type=signup" class="btn btn-info"><i class="fa fa-file-text" aria-hidden="true"></i> CSV</a>
                 </div>
                 <div class="input-group-append input-group-btn">
-                    <a href="<{$xoops_url}>/modules/tad_signup/excel.php?id=<{$id|default:''}>&type=signup" class="btn btn-success"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Excel</a>
+                    <a href="<{$xoops_url}>/modules/tad_signup/excel.php?id=<{$id|default:''}>&type=signup" class="btn btn-success"><i class="fa fa-file-excel" aria-hidden="true"></i> Excel</a>
                 </div>
                 <div class="input-group-append input-group-btn">
-                    <a href="<{$xoops_url}>/modules/tad_signup/pdf.php?id=<{$id|default:''}>" class="btn btn-danger"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> PDF</a>
+                    <a href="<{$xoops_url}>/modules/tad_signup/pdf.php?id=<{$id|default:''}>" class="btn btn-danger"><i class="fa fa-file-pdf" aria-hidden="true"></i> PDF</a>
                 </div>
                 <div class="input-group-append input-group-btn">
-                    <a href="<{$xoops_url}>/modules/tad_signup/word.php?id=<{$id|default:''}>" class="btn btn-primary"><i class="fa fa-file-word-o" aria-hidden="true"></i> Word</a>
+                    <a href="<{$xoops_url}>/modules/tad_signup/word.php?id=<{$id|default:''}>" class="btn btn-primary"><i class="fa fa-file-word" aria-hidden="true"></i> Word</a>
                 </div>
             </div>
         <{/if}>
@@ -165,7 +165,7 @@
                     <input type="hidden" name="id" value="<{$id|default:''}>">
                     <input type="hidden" name="op" value="tad_signup_data_preview_csv">
                     <button type="submit" class="btn btn-primary"><{$smarty.const._MD_TAD_SIGNUP_IMPORT}> CSV</button>
-                    <a href="<{$xoops_url}>/modules/tad_signup/csv.php?id=<{$id|default:''}>" class="btn btn-secondary"><i class="fa fa-file-text-o" aria-hidden="true"></i> <{$smarty.const._MD_TAD_SIGNUP_DOWNLOAD}> CSV <{$smarty.const._MD_TAD_SIGNUP_IMPORT_FILE}></a>
+                    <a href="<{$xoops_url}>/modules/tad_signup/csv.php?id=<{$id|default:''}>" class="btn btn-secondary"><i class="fa fa-file-text" aria-hidden="true"></i> <{$smarty.const._MD_TAD_SIGNUP_DOWNLOAD}> CSV <{$smarty.const._MD_TAD_SIGNUP_IMPORT_FILE}></a>
                 </div>
             </div>
         </form>
@@ -180,7 +180,7 @@
                     <input type="hidden" name="id" value="<{$id|default:''}>">
                     <input type="hidden" name="op" value="tad_signup_data_preview_excel">
                     <button type="submit" class="btn btn-primary"><{$smarty.const._MD_TAD_SIGNUP_IMPORT}> Excel</button>
-                    <a href="<{$xoops_url}>/modules/tad_signup/excel.php?id=<{$id|default:''}>" class="btn btn-secondary"><i class="fa fa-file-excel-o" aria-hidden="true"></i> <{$smarty.const._MD_TAD_SIGNUP_DOWNLOAD}> Excel <{$smarty.const._MD_TAD_SIGNUP_IMPORT_FILE}></a>
+                    <a href="<{$xoops_url}>/modules/tad_signup/excel.php?id=<{$id|default:''}>" class="btn btn-secondary"><i class="fa fa-file-excel" aria-hidden="true"></i> <{$smarty.const._MD_TAD_SIGNUP_DOWNLOAD}> Excel <{$smarty.const._MD_TAD_SIGNUP_IMPORT_FILE}></a>
                 </div>
             </div>
         </form>

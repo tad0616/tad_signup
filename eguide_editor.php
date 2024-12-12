@@ -44,7 +44,7 @@ if ($setup) {
         <input class="form-control form-control-sm" type="text" id="label{$i}" value="{$col['label']}">
     </td>
     <td>
-        <select id="form_tag{$i}" class="form-select form-select-sm" placeholder="請輸入type">
+        <select id="form_tag{$i}" class="form-control form-select form-control form-select-sm" placeholder="請輸入type">
             <option value="text" $isText>文字框</option>
             <option value="checkbox" $isCheckbox>複選</option>
             <option value="radio" $isRadio>單選</option>
@@ -224,7 +224,7 @@ $form = <<<EOF
             <input class="form-control form-control-sm" type="text" id="label" value="">
         </td>
         <td>
-            <select id="form_tag" class="form-select form-select-sm" placeholder="請輸入type">
+            <select id="form_tag" class="form-control form-select form-control form-select-sm" placeholder="請輸入type">
                 <option value="text">文字框</option>
                 <option value="checkbox">複選</option>
                 <option value="radio">單選</option>
